@@ -64,7 +64,7 @@ export default function MatthewPage() {
             </div>
             <h1 className="text-4xl font-bold mb-4">Matthew Hansaab</h1>
             <p className="text-blue-400 text-xl font-semibold mb-2">Founder & Young Investor</p>
-            <p className="text-gray-300 text-lg">3+ years in stock market, consistently outperforming market</p>
+            <p className="text-gray-300 text-lg">3+ years in the stock market, consistently outperforming the market</p>
           </div>
 
           <div className="space-y-12">
@@ -98,8 +98,14 @@ export default function MatthewPage() {
                 <div className="space-y-6">
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">P</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/youth-investing-network-logo.png"
+                          alt="Youth Investing Network"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">President and Founder</h3>
@@ -111,21 +117,33 @@ export default function MatthewPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/z-logo.png"
+                          alt="Z Company"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Investor Relations Intern</h3>
-                        <p className="text-blue-400 font-semibold">[Company]</p>
-                        <p className="text-gray-400">May 2020 - Present • Los Angeles, California</p>
+                        <p className="text-blue-400 font-semibold">{"Zyra"}</p>
+                        <p className="text-gray-400">May 2025 - Present • Los Angeles, California</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">S</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-2">
+                        <Image
+                          src="/images/companies/sagient-logo.png"
+                          alt="Sagient"
+                          width={36}
+                          height={36}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Summer Intern</h3>
@@ -143,8 +161,14 @@ export default function MatthewPage() {
                 <h2 className="text-2xl font-bold text-white mb-6">Education</h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-lg">UC</span>
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      <Image
+                        src="/images/universities/ucsb-logo.png"
+                        alt="UC Santa Barbara"
+                        width={48}
+                        height={48}
+                        className="object-cover rounded-lg"
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white">UC Santa Barbara</h3>
@@ -154,8 +178,14 @@ export default function MatthewPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-lg">BH</span>
+                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                      <Image
+                        src="/images/universities/beverly-hills-hs-logo.png"
+                        alt="Beverly Hills High School"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white">Beverly Hills High School</h3>

@@ -99,8 +99,14 @@ export default function ValentinoPage() {
                 <div className="space-y-6">
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">W</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/golden-wealth-capital-logo.png"
+                          alt="Golden Wealth Capital"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Wealth Management Intern</h3>
@@ -112,8 +118,14 @@ export default function ValentinoPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">A</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/ucsb-finance-connection-logo.png"
+                          alt="UCSB Finance Connection"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Active Member</h3>
@@ -125,8 +137,14 @@ export default function ValentinoPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">A</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/ucsb-investment-connection-logo.png"
+                          alt="UCSB Investment Connection"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Active Member</h3>
@@ -138,8 +156,14 @@ export default function ValentinoPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/washington-unified-logo.png"
+                          alt="Washington Unified School District"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Information Technology Intern</h3>
@@ -157,8 +181,14 @@ export default function ValentinoPage() {
                 <h2 className="text-2xl font-bold text-white mb-6">Education</h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-lg">UC</span>
+                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                      <Image
+                        src="/images/universities/ucsb-logo.png"
+                        alt="UC Santa Barbara"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white">UC Santa Barbara</h3>

@@ -126,8 +126,14 @@ export default function MiguelPage() {
                 <div className="space-y-6">
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">C</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/seo-logo.png"
+                          alt="SEO"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Career Coach</h3>
@@ -140,7 +146,7 @@ export default function MiguelPage() {
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">F</span>
+                        <span className="text-white font-bold text-lg">P</span>
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Founder</h3>
@@ -152,12 +158,18 @@ export default function MiguelPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/gkff-logo.png"
+                          alt="George Kaiser Family Foundation"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Investment Principal</h3>
-                        <p className="text-blue-400 font-semibold">Mellon Family Foundation</p>
+                        <p className="text-blue-400 font-semibold">George Kaiser Family Foundation</p>
                         <p className="text-gray-400">May 2023 - March 2025 • Tulsa, Oklahoma</p>
                       </div>
                     </div>
@@ -165,12 +177,18 @@ export default function MiguelPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/fremont-logo.png"
+                          alt="Fremont Group"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Investment Associate</h3>
-                        <p className="text-blue-400 font-semibold">Fenwick Group</p>
+                        <p className="text-blue-400 font-semibold">Fremont Group</p>
                         <p className="text-gray-400">Feb 2021 - Mar 2023 • San Francisco, California</p>
                       </div>
                     </div>
@@ -178,8 +196,14 @@ export default function MiguelPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/mellon-logo.png"
+                          alt="Mellon Foundation"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Investment Analyst</h3>
@@ -191,12 +215,18 @@ export default function MiguelPage() {
 
                   <div className="border-l-4 border-blue-500 pl-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">I</span>
+                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                        <Image
+                          src="/images/companies/stellant-logo.png"
+                          alt="Salient Partners"
+                          width={40}
+                          height={40}
+                          className="object-contain"
+                        />
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-white">Investment Analyst</h3>
-                        <p className="text-blue-400 font-semibold">Stellant Partners</p>
+                        <p className="text-blue-400 font-semibold">Salient Partners</p>
                         <p className="text-gray-400">Jun 2017 - Jan 2019 • Houston, Texas</p>
                       </div>
                     </div>
@@ -213,8 +243,14 @@ export default function MiguelPage() {
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-white font-bold text-lg">SM</span>
+                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
+                      <Image
+                        src="/images/universities/smu-logo.png"
+                        alt="Southern Methodist University"
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-white">Southern Methodist University</h3>

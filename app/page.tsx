@@ -6,7 +6,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
 import StockTicker from "@/components/stock-ticker"
-import FloatingReviews from "@/components/floating-reviews"
+import FloatingTerms from "@/components/floating-terms"
+import MobileMenu from "@/components/mobile-menu"
 
 export default function HomePage() {
   const [currentMentorIndex, setCurrentMentorIndex] = useState(0)
@@ -35,14 +36,6 @@ export default function HomePage() {
       specialty: "UCSB Finance & Investment Connection",
       experience: "Active in college investment programs and research",
       image: "/images/valentino-curtis.png",
-    },
-    {
-      id: "cole",
-      name: "Cole Bechtel",
-      title: "Economics Student & Investment Leader",
-      specialty: "Public Markets Research, Investment Education",
-      experience: "President of UCSB Investment Connection",
-      image: "/images/cole-bechtel.png",
     },
   ]
 
@@ -96,7 +89,7 @@ export default function HomePage() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-1 md:gap-4">
+          <div className="hidden md:flex items-center gap-1 md:gap-4">
             <Button className="btn-primary px-2 md:px-8 py-2 md:py-3 text-xs md:text-base rounded-lg" asChild>
               <Link href="/signup">Join YIN</Link>
             </Button>
@@ -111,6 +104,8 @@ export default function HomePage() {
               </a>
             </Button>
           </div>
+
+          <MobileMenu />
         </div>
       </header>
 
@@ -136,14 +131,14 @@ export default function HomePage() {
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer">
             Youth Investing Network offers expert-led finance education and personalized consultations for young
             investors in the US.
           </p>
 
           <div className="mb-20">
             <Button
-              className="bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 hover:from-emerald-600 hover:via-blue-700 hover:to-purple-700 text-white px-16 py-6 text-2xl font-bold rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-110 animate-pulse border-2 border-white/20"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-16 py-6 text-2xl font-bold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 animate-dramatic-shake"
               asChild
             >
               <Link href="/mentors">🚀 Book a Free Online Consultation</Link>
@@ -208,10 +203,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-gradient-to-br from-blue-50 to-cyan-50 section-padding">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-slate-900">Reviews</h2>
-          <FloatingReviews />
+      <section className="relative bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900 py-32 md:py-48 overflow-hidden">
+        <FloatingTerms />
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
+          <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white leading-tight">Don't know where to start?</h2>
+          <Link href="/mentors">
+            <p className="text-4xl md:text-5xl font-bold text-blue-400 mb-16 hover:text-blue-300 hover:scale-105 transition-all duration-300 cursor-pointer">
+              We got you covered.
+            </p>
+          </Link>
         </div>
       </section>
 
@@ -322,7 +322,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-16 pt-8 border-t border-border">
-            <p className="text-muted-foreground font-medium">© 2024 Youth Investing Network. All rights reserved.</p>
+            <p className="text-muted-foreground font-medium">© 2025 Youth Investing Network. All rights reserved.</p>
           </div>
         </div>
       </footer>

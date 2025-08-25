@@ -63,21 +63,6 @@ export default function MentorsPage() {
       ],
       location: "California, United States",
     },
-    {
-      id: "cole",
-      name: "Cole Bechtel",
-      title: "Economics Student & Investment Leader",
-      specialty: "Public Markets Research, Investment Education",
-      experience: "President of UCSB Investment Connection",
-      image: "/images/cole-bechtel.png",
-      helpWith: ["Public markets research", "Investment education", "Portfolio modeling", "Financial analysis"],
-      funFacts: [
-        "President of UCSB Investment Connection",
-        "Dean's Investment Group member",
-        "Passionate about making investing accessible",
-      ],
-      location: "Santa Barbara, California",
-    },
   ]
 
   return (
