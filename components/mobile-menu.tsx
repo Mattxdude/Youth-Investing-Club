@@ -25,11 +25,11 @@ export default function MobileMenu() {
         <div className="fixed inset-0 z-50 md:hidden">
           <div className="fixed inset-0 bg-black/50" onClick={closeMenu} />
           <div className="fixed right-0 top-0 h-full w-80 bg-white shadow-xl">
-            <div className="flex items-center justify-between p-6 border-b">
-              <h2 className="text-lg font-semibold text-foreground">Menu</h2>
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
               <button
                 onClick={closeMenu}
-                className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+                className="p-2 text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Close menu"
               >
                 <X size={20} />
@@ -40,26 +40,26 @@ export default function MobileMenu() {
               <Link
                 href="/"
                 onClick={closeMenu}
-                className="block text-lg font-medium text-primary hover:text-primary/80 transition-colors"
+                className="block text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
               >
                 Home
               </Link>
               <Link
-                href="/network"
-                onClick={closeMenu}
-                className="block text-lg font-medium text-primary hover:text-primary/80 transition-colors"
-              >
-                Network
-              </Link>
-              <Link
                 href="/mentors"
                 onClick={closeMenu}
-                className="block text-lg font-medium text-primary hover:text-primary/80 transition-colors"
+                className="block text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
               >
                 Mentors
               </Link>
+              <Link
+                href="/network"
+                onClick={closeMenu}
+                className="block text-lg font-medium text-blue-600 hover:text-blue-800 transition-colors"
+              >
+                Network
+              </Link>
 
-              <div className="pt-6 border-t">
+              <div className="pt-6 border-t border-gray-200">
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg" asChild>
                   <a
                     href="https://form.jotform.com/251635444743055"

@@ -358,6 +358,20 @@
   .animate-float-slow {
     animation: float-slow var(--animation-duration, 40s) ease-in-out infinite;
   }
+
+  /* Adding continuous sliding animation for mentor carousel */
+  @keyframes slide-continuous {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-slide-continuous {
+    animation: slide-continuous 20s linear infinite;
+  }
 }
 
 /* Import DM Sans font from Google Fonts for enhanced typography */

@@ -4,14 +4,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { useState, useEffect } from "react"
 import StockTicker from "@/components/stock-ticker"
 import FloatingTerms from "@/components/floating-terms"
 import MobileMenu from "@/components/mobile-menu"
 
 export default function HomePage() {
-  const [currentMentorIndex, setCurrentMentorIndex] = useState(0)
-
   const mentors = [
     {
       id: "miguel",
@@ -39,14 +36,7 @@ export default function HomePage() {
     },
   ]
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMentorIndex((prev) => (prev + 1) % mentors.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [mentors.length])
-
-  const currentMentor = mentors[currentMentorIndex]
+  const duplicatedMentors = [...mentors, ...mentors]
 
   return (
     <div className="min-h-screen bg-background">
@@ -136,57 +126,52 @@ export default function HomePage() {
             investors in the US.
           </p>
 
-          <div className="mb-20">
-            <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-16 py-6 text-2xl font-bold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 animate-dramatic-shake"
-              asChild
-            >
-              <Link href="/mentors">🚀 Book a Free Online Consultation</Link>
-            </Button>
-          </div>
-
           <div className="mt-32">
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">Meet Our Mentors</h2>
 
-            <div className="max-w-2xl mx-auto">
-              <Link href={`/mentors/${currentMentor.id}#top`} className="block group">
-                <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700">
-                  <CardContent className="text-center p-8 h-full flex flex-col justify-between min-h-[600px]">
-                    <div>
-                      <div className="mb-8">
-                        <Image
-                          src={currentMentor.image || "/placeholder.svg"}
-                          alt={currentMentor.name}
-                          width={220}
-                          height={220}
-                          className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover"
-                        />
-                      </div>
-
-                      <h3 className="text-2xl font-bold text-slate-900 mb-4">{currentMentor.name}</h3>
-                      <p className="text-blue-600 font-bold mb-4 text-lg">{currentMentor.title}</p>
-                      <p className="text-slate-600 text-base mb-3 font-medium leading-relaxed">
-                        {currentMentor.specialty}
-                      </p>
-                      <p className="text-slate-500 text-sm mb-8 font-medium">{currentMentor.experience}</p>
-                    </div>
-
-                    <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-lg py-4 mt-auto rounded-xl transition-colors duration-300">
-                      Book a Session with {currentMentor.name.split(" ")[0]}
-                    </Button>
-                  </CardContent>
-                </Card>
+            <div className="mb-16">
+              <Link href="/mentors">
+                <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-shake-dramatic transform hover:scale-105">
+                  🚀 Book a Free Online Consultation
+                </Button>
               </Link>
+            </div>
 
-              <div className="flex justify-center gap-3 mt-8">
-                {mentors.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentMentorIndex(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentMentorIndex ? "bg-blue-400 scale-125" : "bg-white/50 hover:bg-white/70"
-                    }`}
-                  />
+            <div className="relative overflow-hidden">
+              <div className="flex animate-slide-continuous gap-8">
+                {duplicatedMentors.map((mentor, index) => (
+                  <Link
+                    key={`${mentor.id}-${index}`}
+                    href={`/mentors/${mentor.id}#top`}
+                    className="block group flex-shrink-0 w-80"
+                  >
+                    <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700 h-[650px]">
+                      <CardContent className="text-center p-8 h-full flex flex-col justify-between">
+                        <div className="flex-1">
+                          <div className="mb-8">
+                            <Image
+                              src={mentor.image || "/placeholder.svg"}
+                              alt={mentor.name}
+                              width={220}
+                              height={220}
+                              className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover"
+                            />
+                          </div>
+
+                          <h3 className="text-2xl font-bold text-slate-900 mb-4">{mentor.name}</h3>
+                          <p className="text-blue-600 font-bold mb-4 text-lg">{mentor.title}</p>
+                          <p className="text-slate-600 text-base mb-3 font-medium leading-relaxed">
+                            {mentor.specialty}
+                          </p>
+                          <p className="text-slate-500 text-sm mb-8 font-medium">{mentor.experience}</p>
+                        </div>
+
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300">
+                          Book Session with {mentor.name.split(" ")[0]}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>
