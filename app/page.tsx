@@ -126,16 +126,16 @@ export default function HomePage() {
             investors in the US.
           </p>
 
+          <div className="mb-32">
+            <Link href="/mentors">
+              <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105">
+                🚀 Book a Free Online Consultation
+              </Button>
+            </Link>
+          </div>
+
           <div className="mt-32">
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">Meet Our Mentors</h2>
-
-            <div className="mb-16">
-              <Link href="/mentors">
-                <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-shake-dramatic transform hover:scale-105">
-                  🚀 Book a Free Online Consultation
-                </Button>
-              </Link>
-            </div>
 
             <div className="relative overflow-hidden">
               <div className="flex animate-slide-continuous gap-8">
@@ -167,7 +167,7 @@ export default function HomePage() {
                         </div>
 
                         <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300">
-                          Book Session with {mentor.name.split(" ")[0]}
+                          Book a session
                         </Button>
                       </CardContent>
                     </Card>
@@ -193,9 +193,13 @@ export default function HomePage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
           <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white leading-tight">Don't know where to start?</h2>
           <Link href="/mentors">
-            <p className="text-4xl md:text-5xl font-bold text-blue-400 mb-16 hover:text-blue-300 hover:scale-105 transition-all duration-300 cursor-pointer">
-              We got you covered.
-            </p>
+            <div className="inline-block bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 p-1 rounded-3xl hover:from-blue-600 hover:via-cyan-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl">
+              <div className="bg-slate-900 px-12 py-6 rounded-3xl">
+                <p className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text hover:from-blue-300 hover:via-cyan-300 hover:to-purple-300 transition-all duration-300 cursor-pointer">
+                  We got you covered.
+                </p>
+              </div>
+            </div>
           </Link>
         </div>
       </section>
