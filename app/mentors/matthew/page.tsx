@@ -62,7 +62,7 @@ export default function MatthewPage() {
                 className="rounded-2xl mx-auto border-4 border-blue-500 object-cover"
               />
             </div>
-            <h1 className="text-4xl font-bold mb-4">Matthew Hansaab</h1>
+            <h1 className="text-4xl font-bold mb-4">Matthew Hanasab</h1>
             <p className="text-blue-400 text-xl font-semibold mb-2">Founder & Young Investor</p>
             <p className="text-gray-300 text-lg">3+ years in the stock market, consistently outperforming the market</p>
           </div>

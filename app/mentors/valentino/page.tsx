@@ -168,7 +168,7 @@ export default function ValentinoPage() {
                       <div>
                         <h3 className="text-xl font-bold text-white">Information Technology Intern</h3>
                         <p className="text-blue-400 font-semibold">Washington Unified School District</p>
-                        <p className="text-gray-400">Jun 2022/2023 - Aug 2022/2023 • Washington, United States</p>
+                        <p className="text-gray-400">Jun 2023- Aug 2023 • Washington, United States</p>
                       </div>
                     </div>
                   </div>

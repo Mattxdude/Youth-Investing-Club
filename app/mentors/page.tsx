@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import MobileMenu from "@/components/mobile-menu"
 
 export default function MentorsPage() {
   const [expandedCards, setExpandedCards] = useState<{ [key: string]: { help: boolean; facts: boolean } }>({})
@@ -106,7 +107,7 @@ export default function MentorsPage() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-1 md:gap-4">
+          <div className="hidden md:flex items-center gap-1 md:gap-4">
             <Button className="btn-primary px-2 md:px-8 py-2 md:py-3 text-xs md:text-base rounded-lg" asChild>
               <Link href="/signup">Join YIN</Link>
             </Button>
@@ -121,6 +122,8 @@ export default function MentorsPage() {
               </a>
             </Button>
           </div>
+
+          <MobileMenu />
         </div>
       </header>
 

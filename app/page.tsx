@@ -194,8 +194,8 @@ export default function HomePage() {
           <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white leading-tight">Don't know where to start?</h2>
           <Link href="/mentors">
             <div className="inline-block bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 p-1 rounded-3xl hover:from-blue-600 hover:via-cyan-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl">
-              <div className="bg-slate-900 px-12 py-6 rounded-3xl">
-                <p className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text hover:from-blue-300 hover:via-cyan-300 hover:to-purple-300 transition-all duration-300 cursor-pointer">
+              <div className="bg-slate-900 px-12 py-8 rounded-3xl">
+                <p className="text-4xl md:text-5xl font-bold text-transparent bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text hover:from-blue-300 hover:via-cyan-300 hover:to-purple-300 transition-all duration-300 cursor-pointer leading-relaxed">
                   We got you covered.
                 </p>
               </div>
