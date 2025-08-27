@@ -20,7 +20,7 @@ export default function HomePage() {
     },
     {
       id: "matthew",
-      name: "Matthew Hansaab",
+      name: "Matthew Hanasab",
       title: "Founder & Young Investor",
       specialty: "Stock Market, Individual Stock Picking",
       experience: "3+ years in stock market, consistently outperforming market",
@@ -137,7 +137,7 @@ export default function HomePage() {
           <div className="mt-32">
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">Meet Our Mentors</h2>
 
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden px-8 py-4">
               <div className="flex animate-slide-continuous gap-8">
                 {duplicatedMentors.map((mentor, index) => (
                   <Link
@@ -145,7 +145,7 @@ export default function HomePage() {
                     href={`/mentors/${mentor.id}#top`}
                     className="block group flex-shrink-0 w-80"
                   >
-                    <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700 h-[650px]">
+                    <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700 h-[650px] mx-2">
                       <CardContent className="text-center p-8 h-full flex flex-col justify-between">
                         <div className="flex-1">
                           <div className="mb-8">

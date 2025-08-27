@@ -36,7 +36,7 @@ export default function MentorsPage() {
     },
     {
       id: "matthew",
-      name: "Matthew Hansaab",
+      name: "Matthew Hanasab", // Corrected last name from Hansaab to Hanasab
       title: "Founder & Young Investor",
       specialty: "Stock Market, Individual Stock Picking",
       experience: "3+ years in stock market, consistently outperforming market",
