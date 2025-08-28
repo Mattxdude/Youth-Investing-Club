@@ -115,9 +115,19 @@ export default function ProfileSetupPage() {
         updated_at: new Date().toISOString(),
       }
 
-      const { error: profileError } = await supabase.from("profiles").upsert(profileData, { onConflict: "user_id" })
+      const { error: profileError } = await supabase.from("profiles").insert(profileData)
 
-      if (profileError) throw profileError
+      if (profileError) {
+        // If profile already exists, try updating instead
+        if (profileError.code === "23505") {
+          // unique_violation
+          const { error: updateError } = await supabase.from("profiles").update(profileData).eq("user_id", user.id)
+
+          if (updateError) throw updateError
+        } else {
+          throw profileError
+        }
+      }
 
       router.push("/dashboard")
     } catch (error: any) {
@@ -247,7 +257,9 @@ export default function ProfileSetupPage() {
             {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-white text-sm font-medium mb-2">First Name</label>
+                <label className="block text-white text-sm font-medium mb-2">
+                  First Name <span className="text-red-400">*</span>
+                </label>
                 <Input
                   type="text"
                   placeholder="Enter your first name"
@@ -258,7 +270,9 @@ export default function ProfileSetupPage() {
                 />
               </div>
               <div>
-                <label className="block text-white text-sm font-medium mb-2">Last Name</label>
+                <label className="block text-white text-sm font-medium mb-2">
+                  Last Name <span className="text-red-400">*</span>
+                </label>
                 <Input
                   type="text"
                   placeholder="Enter your last name"
@@ -270,9 +284,16 @@ export default function ProfileSetupPage() {
               </div>
             </div>
 
+            <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+              <p className="text-blue-200 text-sm">
+                <span className="text-red-400">*</span> Required fields. All other fields are optional but help other
+                members learn more about you.
+              </p>
+            </div>
+
             {/* About Me */}
             <div>
-              <label className="block text-white text-sm font-medium mb-2">About Me</label>
+              <label className="block text-white text-sm font-medium mb-2">About Me (Optional)</label>
               <Textarea
                 placeholder="Tell us about yourself..."
                 value={aboutMe}
@@ -284,7 +305,7 @@ export default function ProfileSetupPage() {
 
             {/* Experience */}
             <div>
-              <label className="block text-white text-sm font-medium mb-2">Experience</label>
+              <label className="block text-white text-sm font-medium mb-2">Experience (Optional)</label>
               <Textarea
                 placeholder="Share your work experience, internships, or relevant projects..."
                 value={experience}
@@ -296,7 +317,7 @@ export default function ProfileSetupPage() {
 
             {/* Education */}
             <div>
-              <label className="block text-white text-sm font-medium mb-2">Education</label>
+              <label className="block text-white text-sm font-medium mb-2">Education (Optional)</label>
               <Textarea
                 placeholder="Share your educational background, degrees, certifications..."
                 value={education}
@@ -308,7 +329,7 @@ export default function ProfileSetupPage() {
 
             {/* Social Media Links */}
             <div>
-              <h3 className="text-white text-lg font-semibold mb-4">Social Media Links</h3>
+              <h3 className="text-white text-lg font-semibold mb-4">Social Media Links (Optional)</h3>
               <div className="space-y-4">
                 <div>
                   <label className="block text-white text-sm font-medium mb-2">LinkedIn</label>
@@ -355,7 +376,7 @@ export default function ProfileSetupPage() {
 
             {/* Location Field */}
             <div>
-              <label className="block text-white text-sm font-medium mb-2">Location</label>
+              <label className="block text-white text-sm font-medium mb-2">Location (Optional)</label>
               <Input
                 type="text"
                 placeholder="City, State/Country"
@@ -367,7 +388,7 @@ export default function ProfileSetupPage() {
 
             {/* Interests Field */}
             <div>
-              <label className="block text-white text-sm font-medium mb-2">Interests</label>
+              <label className="block text-white text-sm font-medium mb-2">Interests (Optional)</label>
               <Input
                 type="text"
                 placeholder="Finance, Investing, Technology, etc. (comma-separated)"
