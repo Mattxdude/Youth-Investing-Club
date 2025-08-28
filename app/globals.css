@@ -199,6 +199,13 @@
     animation: scroll 60s linear infinite;
   }
 
+  /* Making ticker animation faster on mobile */
+  @media (max-width: 768px) {
+    .animate-scroll {
+      animation: scroll 30s linear infinite;
+    }
+  }
+
   /* Adding float-up animation for review bubbles */
   @keyframes float-up {
     0% {
@@ -373,10 +380,10 @@
     animation: slide-continuous 20s linear infinite;
   }
 
-  /* Adding faster mobile animation for carousel */
+  /* Making carousel animation much faster on mobile */
   @media (max-width: 768px) {
     .animate-slide-continuous {
-      animation: slide-continuous 12s linear infinite;
+      animation: slide-continuous 8s linear infinite;
     }
   }
 }

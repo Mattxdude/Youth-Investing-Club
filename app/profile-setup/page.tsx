@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { User } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function ProfileSetupPage() {
   const [firstName, setFirstName] = useState("")
@@ -21,9 +22,37 @@ export default function ProfileSetupPage() {
   const [twitter, setTwitter] = useState("")
   const [instagram, setInstagram] = useState("")
   const [website, setWebsite] = useState("")
+  const [location, setLocation] = useState("")
+  const [interests, setInterests] = useState("")
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [user, setUser] = useState<any>(null)
   const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser()
+      if (error || !user) {
+        router.push("/signin")
+        return
+      }
+      setUser(user)
+
+      // Pre-fill name from auth metadata if available
+      if (user.user_metadata?.full_name) {
+        const nameParts = user.user_metadata.full_name.split(" ")
+        setFirstName(nameParts[0] || "")
+        setLastName(nameParts.slice(1).join(" ") || "")
+      }
+    }
+
+    getUser()
+  }, [router, supabase.auth])
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -35,17 +64,79 @@ export default function ProfileSetupPage() {
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
+    if (!user) return
 
-    // TODO: Implement profile saving logic with Supabase
-    // For now, redirect to dashboard
-    setTimeout(() => {
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      let profileImageUrl = null
+
+      // Upload profile photo if provided
+      if (profilePhoto) {
+        const fileExt = profilePhoto.name.split(".").pop()
+        const fileName = `${user.id}-${Date.now()}.${fileExt}`
+
+        const { error: uploadError } = await supabase.storage.from("profile-images").upload(fileName, profilePhoto)
+
+        if (uploadError) {
+          console.warn("Photo upload failed:", uploadError.message)
+          // Continue without photo rather than failing completely
+        } else {
+          const {
+            data: { publicUrl },
+          } = supabase.storage.from("profile-images").getPublicUrl(fileName)
+          profileImageUrl = publicUrl
+        }
+      }
+
+      // Parse interests into array
+      const interestsArray = interests
+        .split(",")
+        .map((interest) => interest.trim())
+        .filter((interest) => interest.length > 0)
+
+      // Create or update profile
+      const profileData = {
+        user_id: user.id,
+        full_name: `${firstName} ${lastName}`.trim(),
+        email: user.email,
+        about_me: aboutMe || null,
+        experience: experience || null,
+        education: education || null,
+        linkedin_url: linkedin || null,
+        twitter_url: twitter || null,
+        instagram_url: instagram || null,
+        website_url: website || null,
+        location: location || null,
+        interests: interestsArray.length > 0 ? interestsArray : null,
+        profile_image_url: profileImageUrl,
+        is_public: true,
+        updated_at: new Date().toISOString(),
+      }
+
+      const { error: profileError } = await supabase.from("profiles").upsert(profileData, { onConflict: "user_id" })
+
+      if (profileError) throw profileError
+
       router.push("/dashboard")
-    }, 1000)
+    } catch (error: any) {
+      setError(error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleCancel = () => {
     router.push("/dashboard")
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    )
   }
 
   return (
@@ -262,6 +353,31 @@ export default function ProfileSetupPage() {
               </div>
             </div>
 
+            {/* Location Field */}
+            <div>
+              <label className="block text-white text-sm font-medium mb-2">Location</label>
+              <Input
+                type="text"
+                placeholder="City, State/Country"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                className="bg-slate-700 border-slate-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+              />
+            </div>
+
+            {/* Interests Field */}
+            <div>
+              <label className="block text-white text-sm font-medium mb-2">Interests</label>
+              <Input
+                type="text"
+                placeholder="Finance, Investing, Technology, etc. (comma-separated)"
+                value={interests}
+                onChange={(e) => setInterests(e.target.value)}
+                className="bg-slate-700 border-slate-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+              />
+              <p className="text-gray-400 text-sm mt-1">Separate multiple interests with commas</p>
+            </div>
+
             {/* Action Buttons */}
             <div className="flex gap-4 pt-6">
               <Button
@@ -280,6 +396,14 @@ export default function ProfileSetupPage() {
                 Cancel
               </Button>
             </div>
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-600 text-white p-4 rounded-lg">
+                <p className="font-medium">Error saving profile:</p>
+                <p className="text-sm">{error}</p>
+              </div>
+            )}
           </form>
         </div>
       </div>

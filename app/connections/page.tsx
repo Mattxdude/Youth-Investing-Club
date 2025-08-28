@@ -112,9 +112,7 @@ export default function ConnectionsPage() {
               </nav>
               <div className="flex items-center space-x-4">
                 <Button asChild>
-                  <a href="https://form.jotform.com/251635444743055" target="_blank" rel="noopener noreferrer">
-                    Join YIN
-                  </a>
+                  <Link href="/signup">Join YIN</Link>
                 </Button>
                 <Button variant="outline" asChild>
                   <a href="https://form.jotform.com/251635444743055" target="_blank" rel="noopener noreferrer">
@@ -164,9 +162,7 @@ export default function ConnectionsPage() {
             </nav>
             <div className="flex items-center space-x-4">
               <Button asChild>
-                <a href="https://form.jotform.com/251635444743055" target="_blank" rel="noopener noreferrer">
-                  Join YIN
-                </a>
+                <Link href="/signup">Join YIN</Link>
               </Button>
               <Button variant="outline" asChild>
                 <a href="https://form.jotform.com/251635444743055" target="_blank" rel="noopener noreferrer">

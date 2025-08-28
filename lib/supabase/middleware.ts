@@ -32,14 +32,16 @@ export async function updateSession(request: NextRequest) {
   if (
     request.nextUrl.pathname !== "/" &&
     !user &&
+    !request.nextUrl.pathname.startsWith("/signin") &&
     !request.nextUrl.pathname.startsWith("/signup") &&
     !request.nextUrl.pathname.startsWith("/auth") &&
     !request.nextUrl.pathname.startsWith("/mentors") &&
     !request.nextUrl.pathname.startsWith("/network") &&
-    !request.nextUrl.pathname.startsWith("/profile-setup")
+    !request.nextUrl.pathname.startsWith("/profile-setup") &&
+    !request.nextUrl.pathname.startsWith("/connections")
   ) {
     const url = request.nextUrl.clone()
-    url.pathname = "/signup"
+    url.pathname = "/signin"
     return NextResponse.redirect(url)
   }
 

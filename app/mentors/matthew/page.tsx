@@ -203,7 +203,7 @@ export default function MatthewPage() {
                     <div>
                       <h3 className="text-xl font-bold text-white">UC Santa Barbara</h3>
                       <p className="text-blue-400 font-semibold">Economics and Accounting</p>
-                      <p className="text-gray-400">2020 - 2023</p>
+                      <p className="text-gray-400">2025 - 2029</p>
                     </div>
                   </div>
 
@@ -220,7 +220,7 @@ export default function MatthewPage() {
                     <div>
                       <h3 className="text-xl font-bold text-white">Beverly Hills High School</h3>
                       <p className="text-blue-400 font-semibold">Grades: W 4.3/ UW 3.8</p>
-                      <p className="text-gray-400">Aug 2017 - May 2020</p>
+                      <p className="text-gray-400">Aug 2021 - May 2025</p>
                       <p className="text-gray-400 text-sm mt-2">
                         Founded the Youth Investing Club, Varsity Golf, Cross Country, National Honors Society, Skills
                         USA, CSF member
