@@ -8,9 +8,10 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import Link from "next/link"
-import { signInWithEmail, signInWithGoogle } from "@/lib/auth/actions"
+import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
+import { useSearchParams } from "next/navigation"
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -19,14 +20,22 @@ export default function SignInPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const message = searchParams.get("message")
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
 
+    const supabase = createClient()
+
     try {
-      const { data, error } = await signInWithEmail(email, password)
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
       if (error) throw error
 
       if (data.user) {
@@ -43,10 +52,16 @@ export default function SignInPage() {
     setIsLoading(true)
     setError(null)
 
+    const supabase = createClient()
+
     try {
-      const { error } = await signInWithGoogle()
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+        },
+      })
       if (error) throw error
-      // OAuth redirect will handle navigation
     } catch (error: any) {
       setError(error.message)
       setIsLoading(false)
@@ -103,6 +118,12 @@ export default function SignInPage() {
         <Card className="w-full max-w-md bg-gray-800 border-gray-700">
           <CardContent className="p-8">
             <h1 className="text-3xl font-bold text-white text-center mb-8">Welcome Back</h1>
+
+            {message && (
+              <div className="mb-6 p-3 bg-green-600/20 border border-green-600/30 rounded-md">
+                <p className="text-green-400 text-sm text-center">{message}</p>
+              </div>
+            )}
 
             <form onSubmit={handleEmailSignIn} className="space-y-6">
               <div>

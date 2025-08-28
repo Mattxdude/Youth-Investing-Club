@@ -8,7 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Eye, EyeOff } from "lucide-react"
 import { useState } from "react"
 import Link from "next/link"
-import { signUpWithEmail, signInWithGoogle } from "@/lib/auth/actions"
+import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import Image from "next/image"
 
@@ -26,12 +26,24 @@ export default function SignUpPage() {
     setIsLoading(true)
     setError(null)
 
+    const supabase = createClient()
+
     try {
-      const { data, error } = await signUpWithEmail(email, password, fullName)
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+          data: {
+            full_name: fullName,
+          },
+        },
+      })
+
       if (error) throw error
 
       if (data.user) {
-        router.push("/profile-setup")
+        router.push("/signin?message=Account created successfully. Please sign in.")
       }
     } catch (error: any) {
       setError(error.message)
@@ -44,10 +56,16 @@ export default function SignUpPage() {
     setIsLoading(true)
     setError(null)
 
+    const supabase = createClient()
+
     try {
-      const { error } = await signInWithGoogle()
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+        },
+      })
       if (error) throw error
-      // OAuth redirect will handle navigation to profile-setup
     } catch (error: any) {
       setError(error.message)
       setIsLoading(false)
