@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { User } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
+import { crypto } from "crypto"
 
 export default function ProfileSetupPage() {
   const [firstName, setFirstName] = useState("")
@@ -98,6 +99,7 @@ export default function ProfileSetupPage() {
 
       // Create or update profile
       const profileData = {
+        id: crypto.randomUUID(), // Generate unique ID
         user_id: user.id,
         full_name: `${firstName} ${lastName}`.trim(),
         email: user.email,
