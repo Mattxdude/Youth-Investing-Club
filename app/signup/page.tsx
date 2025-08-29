@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -29,21 +28,41 @@ export default function SignUpPage() {
     const supabase = createClient()
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}/profile-setup`,
           data: {
             full_name: fullName,
           },
         },
       })
 
-      if (error) throw error
+      if (signUpError) throw signUpError
 
-      if (data.user) {
-        router.push("/signin?message=Account created successfully. Please sign in.")
+      const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (signInError) throw signInError
+
+      if (signInData.user) {
+        const { error: profileError } = await supabase.from("profiles").insert({
+          user_id: signInData.user.id,
+          full_name: fullName,
+          email: email,
+          is_public: true,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+
+        if (profileError && profileError.code !== "23505") {
+          console.warn("Profile creation warning:", profileError.message)
+        }
+
+        router.push("/profile-setup")
       }
     } catch (error: any) {
       setError(error.message)
@@ -62,7 +81,7 @@ export default function SignUpPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+          redirectTo: `${window.location.origin}/profile-setup`,
         },
       })
       if (error) throw error

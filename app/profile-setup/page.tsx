@@ -11,7 +11,6 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { User } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
-import { crypto } from "crypto"
 
 export default function ProfileSetupPage() {
   const [firstName, setFirstName] = useState("")
@@ -97,12 +96,8 @@ export default function ProfileSetupPage() {
         .map((interest) => interest.trim())
         .filter((interest) => interest.length > 0)
 
-      // Create or update profile
       const profileData = {
-        id: crypto.randomUUID(), // Generate unique ID
-        user_id: user.id,
         full_name: `${firstName} ${lastName}`.trim(),
-        email: user.email,
         about_me: aboutMe || null,
         experience: experience || null,
         education: education || null,
@@ -113,23 +108,14 @@ export default function ProfileSetupPage() {
         location: location || null,
         interests: interestsArray.length > 0 ? interestsArray : null,
         profile_image_url: profileImageUrl,
-        is_public: true,
         updated_at: new Date().toISOString(),
       }
 
-      const { error: profileError } = await supabase.from("profiles").insert(profileData)
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .upsert({ ...profileData, user_id: user.id }, { onConflict: "user_id" })
 
-      if (profileError) {
-        // If profile already exists, try updating instead
-        if (profileError.code === "23505") {
-          // unique_violation
-          const { error: updateError } = await supabase.from("profiles").update(profileData).eq("user_id", user.id)
-
-          if (updateError) throw updateError
-        } else {
-          throw profileError
-        }
-      }
+      if (profileError) throw profileError
 
       router.push("/dashboard")
     } catch (error: any) {
@@ -199,7 +185,6 @@ export default function ProfileSetupPage() {
 
       <div className="pt-16 px-4 py-8">
         <div className="max-w-2xl mx-auto">
-          {/* Welcome Card */}
           <Card className="mb-8 bg-blue-600 border-blue-500">
             <CardContent className="p-6 text-center">
               <div className="flex justify-center mb-4">
@@ -220,9 +205,7 @@ export default function ProfileSetupPage() {
             </CardContent>
           </Card>
 
-          {/* Profile Form */}
           <form onSubmit={handleSaveProfile} className="space-y-6">
-            {/* Profile Photo */}
             <div className="text-center">
               <div className="relative inline-block">
                 <div className="w-32 h-32 bg-gray-600 rounded-full flex items-center justify-center mb-4 mx-auto">
@@ -256,7 +239,6 @@ export default function ProfileSetupPage() {
               <p className="text-gray-400 text-sm mt-2">Max size: 5MB</p>
             </div>
 
-            {/* Name Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-white text-sm font-medium mb-2">
@@ -293,7 +275,6 @@ export default function ProfileSetupPage() {
               </p>
             </div>
 
-            {/* About Me */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">About Me (Optional)</label>
               <Textarea
@@ -305,7 +286,6 @@ export default function ProfileSetupPage() {
               />
             </div>
 
-            {/* Experience */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">Experience (Optional)</label>
               <Textarea
@@ -317,7 +297,6 @@ export default function ProfileSetupPage() {
               />
             </div>
 
-            {/* Education */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">Education (Optional)</label>
               <Textarea
@@ -329,7 +308,6 @@ export default function ProfileSetupPage() {
               />
             </div>
 
-            {/* Social Media Links */}
             <div>
               <h3 className="text-white text-lg font-semibold mb-4">Social Media Links (Optional)</h3>
               <div className="space-y-4">
@@ -376,7 +354,6 @@ export default function ProfileSetupPage() {
               </div>
             </div>
 
-            {/* Location Field */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">Location (Optional)</label>
               <Input
@@ -388,7 +365,6 @@ export default function ProfileSetupPage() {
               />
             </div>
 
-            {/* Interests Field */}
             <div>
               <label className="block text-white text-sm font-medium mb-2">Interests (Optional)</label>
               <Input
@@ -401,7 +377,6 @@ export default function ProfileSetupPage() {
               <p className="text-gray-400 text-sm mt-1">Separate multiple interests with commas</p>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex gap-4 pt-6">
               <Button
                 type="submit"
@@ -420,7 +395,6 @@ export default function ProfileSetupPage() {
               </Button>
             </div>
 
-            {/* Error Message */}
             {error && (
               <div className="bg-red-600 text-white p-4 rounded-lg">
                 <p className="font-medium">Error saving profile:</p>
