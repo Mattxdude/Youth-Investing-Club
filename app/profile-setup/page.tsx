@@ -97,7 +97,9 @@ export default function ProfileSetupPage() {
         .filter((interest) => interest.length > 0)
 
       const profileData = {
+        user_id: user.id,
         full_name: `${firstName} ${lastName}`.trim(),
+        email: user.email,
         about_me: aboutMe || null,
         experience: experience || null,
         education: education || null,
@@ -108,14 +110,26 @@ export default function ProfileSetupPage() {
         location: location || null,
         interests: interestsArray.length > 0 ? interestsArray : null,
         profile_image_url: profileImageUrl,
+        is_public: true,
+        created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }
 
-      const { error: profileError } = await supabase
-        .from("profiles")
-        .upsert({ ...profileData, user_id: user.id }, { onConflict: "user_id" })
+      // First try to insert a new profile
+      const { error: insertError } = await supabase.from("profiles").insert(profileData)
 
-      if (profileError) throw profileError
+      if (insertError) {
+        // If insert fails due to existing profile, update instead
+        if (insertError.code === "23505") {
+          // Unique constraint violation
+          const { user_id, created_at, ...updateData } = profileData
+          const { error: updateError } = await supabase.from("profiles").update(updateData).eq("user_id", user.id)
+
+          if (updateError) throw updateError
+        } else {
+          throw insertError
+        }
+      }
 
       router.push("/dashboard")
     } catch (error: any) {
