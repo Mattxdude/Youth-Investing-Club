@@ -32,13 +32,25 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
     window.location.href = "/"
   }
 
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((word) => word.charAt(0))
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
+  }
+
+  const displayName = profile?.full_name || user?.email?.split("@")[0] || "User"
+  const initials = getInitials(displayName)
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 hover:opacity-80 transition-opacity p-1 rounded-lg hover:bg-gray-100"
       >
-        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+        <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden">
           {profile?.profile_image_url ? (
             <img
               src={profile.profile_image_url || "/placeholder.svg"}
@@ -46,7 +58,9 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <User className="w-5 h-5 text-gray-600" />
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-sm font-semibold">{initials}</span>
+            </div>
           )}
         </div>
         <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform ${isOpen ? "rotate-180" : ""}`} />
@@ -57,7 +71,7 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
           {/* Profile info section */}
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
                 {profile?.profile_image_url ? (
                   <img
                     src={profile.profile_image_url || "/placeholder.svg"}
@@ -65,11 +79,13 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
                     className="w-12 h-12 rounded-full object-cover"
                   />
                 ) : (
-                  <User className="w-6 h-6 text-gray-600" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <span className="text-white text-base font-semibold">{initials}</span>
+                  </div>
                 )}
               </div>
               <div>
-                <p className="font-medium text-gray-900">{profile?.full_name || "User"}</p>
+                <p className="font-medium text-gray-900">{displayName}</p>
                 <p className="text-sm text-gray-500">{user?.email}</p>
               </div>
             </div>
