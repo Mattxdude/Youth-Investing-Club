@@ -378,12 +378,13 @@
 
   .animate-slide-continuous {
     animation: slide-continuous 20s linear infinite;
+    will-change: transform;
   }
 
-  /* Making carousel animation much faster on mobile */
   @media (max-width: 768px) {
     .animate-slide-continuous {
-      animation: slide-continuous 8s linear infinite;
+      animation: slide-continuous 12s linear infinite;
+      will-change: transform;
     }
   }
 }

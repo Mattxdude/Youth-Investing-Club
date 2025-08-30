@@ -58,11 +58,18 @@ export default function SignInPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+          redirectTo: `${window.location.origin}/dashboard`,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
         },
       })
       if (error) throw error
+
+      // Note: Don't set loading to false here as the page will redirect
     } catch (error: any) {
+      console.error("Google OAuth error:", error)
       setError(error.message)
       setIsLoading(false)
     }

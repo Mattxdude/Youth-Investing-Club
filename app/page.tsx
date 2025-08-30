@@ -81,7 +81,7 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">Meet Our Mentors</h2>
 
             <div className="relative overflow-hidden px-8 py-4">
-              <div className="flex animate-slide-continuous gap-8">
+              <div className="flex animate-slide-continuous gap-8" style={{ width: "max-content" }}>
                 {duplicatedMentors.map((mentor, index) => (
                   <Link
                     key={`${mentor.id}-${index}`}

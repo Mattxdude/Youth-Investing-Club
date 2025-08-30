@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import MobileMenu from "@/components/mobile-menu"
 
 export default function ValentinoPage() {
   return (
@@ -47,7 +48,7 @@ export default function ValentinoPage() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
             <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold" asChild>
               <Link href="/signup">Join YIN</Link>
             </Button>
@@ -60,6 +61,10 @@ export default function ValentinoPage() {
                 Apply to become a mentor
               </a>
             </Button>
+          </div>
+
+          <div className="md:hidden">
+            <MobileMenu />
           </div>
         </div>
       </header>

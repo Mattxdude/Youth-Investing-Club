@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { User } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import MobileMenu from "@/components/mobile-menu"
+import ProfileDropdown from "@/components/profile-dropdown"
 
 export default function AuthHeader() {
   const [user, setUser] = useState<any>(null)
@@ -105,22 +105,7 @@ export default function AuthHeader() {
 
         <div className="hidden md:flex items-center gap-1 md:gap-4">
           {!isLoading && user ? (
-            <Link href="/profile" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                {profile?.profile_image_url ? (
-                  <img
-                    src={profile.profile_image_url || "/placeholder.svg"}
-                    alt="Profile"
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                ) : (
-                  <User className="w-5 h-5 text-gray-600" />
-                )}
-              </div>
-              <span className="text-sm font-medium text-foreground">
-                {profile?.full_name || user.email?.split("@")[0] || "Profile"}
-              </span>
-            </Link>
+            <ProfileDropdown user={user} profile={profile} />
           ) : (
             <>
               <Button className="btn-primary px-2 md:px-8 py-2 md:py-3 text-xs md:text-base rounded-lg" asChild>
