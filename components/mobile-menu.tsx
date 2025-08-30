@@ -3,9 +3,15 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { X, Menu } from "lucide-react"
+import { X, Menu, User } from "lucide-react"
 
-export default function MobileMenu() {
+interface MobileMenuProps {
+  user?: any
+  profile?: any
+  isLoading?: boolean
+}
+
+export default function MobileMenu({ user, profile, isLoading }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -40,6 +46,32 @@ export default function MobileMenu() {
           </div>
 
           <nav className="p-6 space-y-8 bg-white">
+            {!isLoading && user && (
+              <Link
+                href="/profile"
+                onClick={closeMenu}
+                className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
+              >
+                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                  {profile?.profile_image_url ? (
+                    <img
+                      src={profile.profile_image_url || "/placeholder.svg"}
+                      alt="Profile"
+                      className="w-12 h-12 rounded-full object-cover"
+                    />
+                  ) : (
+                    <User className="w-6 h-6 text-gray-600" />
+                  )}
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900">
+                    {profile?.full_name || user.email?.split("@")[0] || "My Profile"}
+                  </p>
+                  <p className="text-sm text-gray-600">View Profile</p>
+                </div>
+              </Link>
+            )}
+
             <Link
               href="/"
               onClick={closeMenu}

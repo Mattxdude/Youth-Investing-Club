@@ -98,7 +98,7 @@ export default function ProfileSetupPage() {
 
       const profileData = {
         user_id: user.id,
-        full_name: `${firstName} ${lastName}`.trim(),
+        full_name: `${firstName} ${lastName}`.trim() || "Anonymous User",
         email: user.email,
         about_me: aboutMe || null,
         experience: experience || null,
@@ -247,7 +247,7 @@ export default function ProfileSetupPage() {
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                   onClick={() => document.getElementById("photo-upload")?.click()}
                 >
-                  Upload Photo
+                  Upload Photo (Optional)
                 </Button>
               </div>
               <p className="text-gray-400 text-sm mt-2">Max size: 5MB</p>
@@ -255,37 +255,31 @@ export default function ProfileSetupPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-white text-sm font-medium mb-2">
-                  First Name <span className="text-red-400">*</span>
-                </label>
+                <label className="block text-white text-sm font-medium mb-2">First Name (Optional)</label>
                 <Input
                   type="text"
                   placeholder="Enter your first name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="bg-slate-700 border-slate-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
-                  required
                 />
               </div>
               <div>
-                <label className="block text-white text-sm font-medium mb-2">
-                  Last Name <span className="text-red-400">*</span>
-                </label>
+                <label className="block text-white text-sm font-medium mb-2">Last Name (Optional)</label>
                 <Input
                   type="text"
                   placeholder="Enter your last name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className="bg-slate-700 border-slate-600 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
-                  required
                 />
               </div>
             </div>
 
             <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-4">
               <p className="text-blue-200 text-sm">
-                <span className="text-red-400">*</span> Required fields. All other fields are optional but help other
-                members learn more about you.
+                All fields are optional! Fill out whatever you're comfortable sharing. You can always update your
+                profile later.
               </p>
             </div>
 
@@ -405,7 +399,7 @@ export default function ProfileSetupPage() {
                 variant="outline"
                 className="px-8 bg-gray-600 hover:bg-gray-700 text-white border-gray-500 py-3"
               >
-                Cancel
+                Skip for now
               </Button>
             </div>
 

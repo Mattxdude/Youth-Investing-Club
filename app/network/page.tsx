@@ -2,12 +2,11 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import MobileMenu from "@/components/mobile-menu"
 import { createClient } from "@/lib/supabase/client"
-import { User, MapPin, Briefcase, GraduationCap, ExternalLink } from "lucide-react"
+import { User } from "lucide-react"
 import { useEffect, useState } from "react"
 
 interface Profile {
@@ -118,7 +117,7 @@ export default function NetworkPage() {
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">Youth Investing Network</h1>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">The Network</h1>
             <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed font-medium max-w-3xl mx-auto">
               Connect with like-minded young investors, share experiences, and grow your financial knowledge together.
             </p>
@@ -140,7 +139,7 @@ export default function NetworkPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
               <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-white mb-2">{publicProfiles.length}</div>
+                <div className="text-3xl font-bold text-white mb-2">0</div>
                 <div className="text-blue-200">Active Members</div>
               </CardContent>
             </Card>
@@ -162,131 +161,16 @@ export default function NetworkPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Meet Our Community</h2>
 
-            {loading ? (
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-12 text-center">
-                  <div className="animate-spin w-8 h-8 border-2 border-blue-300 border-t-transparent rounded-full mx-auto mb-4"></div>
-                  <p className="text-blue-200">Loading community members...</p>
-                </CardContent>
-              </Card>
-            ) : publicProfiles.length === 0 ? (
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-12 text-center">
-                  <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
-                  <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
-                  <Button className="btn-primary" asChild>
-                    <Link href="/signup">Join Now</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {publicProfiles.map((profile) => (
-                  <Card
-                    key={profile.id}
-                    className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      {/* Profile Header */}
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center overflow-hidden">
-                          {profile.profile_image_url ? (
-                            <img
-                              src={profile.profile_image_url || "/placeholder.svg"}
-                              alt={profile.full_name || "Profile"}
-                              className="w-16 h-16 object-cover"
-                            />
-                          ) : (
-                            <span className="text-xl font-bold text-white">
-                              {profile.full_name?.charAt(0) || profile.email?.charAt(0).toUpperCase()}
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-white">
-                            {profile.full_name || "Anonymous Member"}
-                          </h3>
-                          {profile.location && (
-                            <div className="flex items-center gap-1 text-blue-200 text-sm">
-                              <MapPin className="w-3 h-3" />
-                              {profile.location}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* About Me */}
-                      {profile.about_me && (
-                        <p className="text-blue-100 text-sm mb-4 line-clamp-3">{profile.about_me}</p>
-                      )}
-
-                      {/* Experience & Education Icons */}
-                      <div className="flex gap-4 mb-4">
-                        {profile.experience && (
-                          <div className="flex items-center gap-1 text-blue-200 text-xs">
-                            <Briefcase className="w-3 h-3" />
-                            <span>Experience</span>
-                          </div>
-                        )}
-                        {profile.education && (
-                          <div className="flex items-center gap-1 text-blue-200 text-xs">
-                            <GraduationCap className="w-3 h-3" />
-                            <span>Education</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Interests */}
-                      {profile.interests && profile.interests.length > 0 && (
-                        <div className="mb-4">
-                          <div className="flex flex-wrap gap-1">
-                            {profile.interests.slice(0, 3).map((interest: string, index: number) => (
-                              <Badge key={index} variant="secondary" className="text-xs bg-blue-600/50 text-blue-100">
-                                {interest}
-                              </Badge>
-                            ))}
-                            {profile.interests.length > 3 && (
-                              <Badge variant="secondary" className="text-xs bg-blue-600/50 text-blue-100">
-                                +{profile.interests.length - 3}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Social Links */}
-                      <div className="flex gap-2">
-                        {profile.linkedin_url && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-                            asChild
-                          >
-                            <a href={profile.linkedin_url} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          </Button>
-                        )}
-                        {profile.website_url && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-                            asChild
-                          >
-                            <a href={profile.website_url} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
+            <Card className="bg-white/10 backdrop-blur-md border-white/20">
+              <CardContent className="p-12 text-center">
+                <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
+                <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
+                <Button className="btn-primary" asChild>
+                  <Link href="/signup">Join Now</Link>
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
