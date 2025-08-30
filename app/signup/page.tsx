@@ -32,7 +32,7 @@ export default function SignUpPage() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/profile-setup`,
+          emailRedirectTo: `${window.location.origin}/dashboard`,
           data: {
             full_name: fullName,
           },
@@ -42,7 +42,7 @@ export default function SignUpPage() {
       if (signUpError) throw signUpError
 
       if (signUpData.user) {
-        router.push("/profile-setup")
+        router.push("/dashboard")
       }
     } catch (error: any) {
       setError(error.message)
@@ -61,7 +61,7 @@ export default function SignUpPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/profile-setup`,
+          redirectTo: `${window.location.origin}/dashboard`,
           queryParams: {
             access_type: "offline",
             prompt: "consent",

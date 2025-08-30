@@ -14,6 +14,30 @@ export default function AuthHeader() {
   const [isLoading, setIsLoading] = useState(true)
   const supabase = createClient()
 
+  const fetchProfile = async (userId: string, retries = 3) => {
+    for (let i = 0; i < retries; i++) {
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("profile_image_url, full_name")
+        .eq("user_id", userId)
+        .single()
+
+      if (profileData) {
+        setProfile(profileData)
+        return profileData
+      }
+
+      // Wait a bit before retrying (profile might not be created yet)
+      if (i < retries - 1) {
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+      }
+    }
+
+    // If no profile found, create a basic one for display purposes
+    setProfile({ full_name: user?.email?.split("@")[0] || "User", profile_image_url: null })
+    return null
+  }
+
   useEffect(() => {
     const getUser = async () => {
       const {
@@ -23,16 +47,7 @@ export default function AuthHeader() {
       setUser(user)
 
       if (user) {
-        // Get profile data for profile picture
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("profile_image_url, full_name")
-          .eq("user_id", user.id)
-          .single()
-
-        if (profileData) {
-          setProfile(profileData)
-        }
+        await fetchProfile(user.id)
       }
 
       setIsLoading(false)
@@ -44,21 +59,16 @@ export default function AuthHeader() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("[v0] Auth state change:", event, session?.user?.id)
+
       if (event === "SIGNED_IN" && session?.user) {
         setUser(session.user)
-        // Get profile data
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("profile_image_url, full_name")
-          .eq("user_id", session.user.id)
-          .single()
-
-        if (profileData) {
-          setProfile(profileData)
-        }
+        setIsLoading(false)
+        await fetchProfile(session.user.id)
       } else if (event === "SIGNED_OUT") {
         setUser(null)
         setProfile(null)
+        setIsLoading(false)
       }
     })
 
@@ -104,9 +114,9 @@ export default function AuthHeader() {
         </nav>
 
         <div className="hidden md:flex items-center gap-1 md:gap-4">
-          {!isLoading && user ? (
+          {user && !isLoading ? (
             <ProfileDropdown user={user} profile={profile} />
-          ) : (
+          ) : !user && !isLoading ? (
             <>
               <Button className="btn-primary px-2 md:px-8 py-2 md:py-3 text-xs md:text-base rounded-lg" asChild>
                 <Link href="/signup">Join YIN</Link>
@@ -122,7 +132,7 @@ export default function AuthHeader() {
                 </a>
               </Button>
             </>
-          )}
+          ) : null}
         </div>
 
         <MobileMenu user={user} profile={profile} isLoading={isLoading} />
