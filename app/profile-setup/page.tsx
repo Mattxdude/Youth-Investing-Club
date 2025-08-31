@@ -98,8 +98,8 @@ export default function ProfileSetupPage() {
 
       const profileData = {
         user_id: user.id,
-        full_name: `${firstName} ${lastName}`.trim() || "Anonymous User",
-        email: user.email,
+        full_name: `${firstName} ${lastName}`.trim() || null,
+        email: user.email || null,
         about_me: aboutMe || null,
         experience: experience || null,
         education: education || null,
@@ -111,28 +111,20 @@ export default function ProfileSetupPage() {
         interests: interestsArray.length > 0 ? interestsArray : null,
         profile_image_url: profileImageUrl,
         is_public: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
       }
 
-      // First try to insert a new profile
-      const { error: insertError } = await supabase.from("profiles").insert(profileData)
+      const { error: upsertError } = await supabase.from("profiles").upsert(profileData, {
+        onConflict: "user_id",
+        ignoreDuplicates: false,
+      })
 
-      if (insertError) {
-        // If insert fails due to existing profile, update instead
-        if (insertError.code === "23505") {
-          // Unique constraint violation
-          const { user_id, created_at, ...updateData } = profileData
-          const { error: updateError } = await supabase.from("profiles").update(updateData).eq("user_id", user.id)
-
-          if (updateError) throw updateError
-        } else {
-          throw insertError
-        }
+      if (upsertError) {
+        throw upsertError
       }
 
       router.push("/dashboard")
     } catch (error: any) {
+      console.error("Profile save error:", error)
       setError(error.message)
     } finally {
       setIsLoading(false)
