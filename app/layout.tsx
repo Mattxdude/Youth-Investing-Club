@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     "Expert-led finance education and personalized consultations for young investors. Connect with experienced mentors and build your financial knowledge.",
   generator: "v0.app",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: "/images/yin-logo.png",
+    shortcut: "/images/yin-logo.png",
+    apple: "/images/yin-logo.png",
   },
 }
 
