@@ -113,10 +113,20 @@ export default function ProfileSetupPage() {
         is_public: true,
       }
 
-      const { error: upsertError } = await supabase.from("profiles").upsert(profileData)
+      const { error: insertError } = await supabase.from("profiles").insert(profileData)
 
-      if (upsertError) {
-        throw upsertError
+      if (insertError) {
+        // If insert fails due to existing record, try update instead
+        if (insertError.code === "23505") {
+          // Unique constraint violation
+          const { error: updateError } = await supabase.from("profiles").update(profileData).eq("user_id", user.id)
+
+          if (updateError) {
+            throw updateError
+          }
+        } else {
+          throw insertError
+        }
       }
 
       router.push("/dashboard")
