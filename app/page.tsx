@@ -39,7 +39,7 @@ export default function HomePage() {
       name: "Cole Bechtel",
       title: "Economics Student & Investment Leader",
       specialty: "Public Markets Research, Student Finance Education",
-      experience: "President of UCSB Investment Connection, Portfolio Manager at Dean's Investment Group",
+      experience: "President of UCSB Investment Connection, Dean's Investment Group",
       image: "/images/cole-bechtel.png",
     },
   ]
@@ -98,7 +98,7 @@ export default function HomePage() {
                   >
                     <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700 h-[650px] mx-2">
                       <CardContent className="text-center p-8 h-full flex flex-col justify-between">
-                        <div className="flex-1">
+                        <div className="flex-1 flex flex-col">
                           <div className="mb-8">
                             <Image
                               src={mentor.image || "/placeholder.svg"}
@@ -114,7 +114,9 @@ export default function HomePage() {
                           <p className="text-slate-600 text-base mb-3 font-medium leading-relaxed">
                             {mentor.specialty}
                           </p>
-                          <p className="text-slate-500 text-sm mb-8 font-medium">{mentor.experience}</p>
+                          <div className="h-12 flex items-center justify-center mb-8">
+                            <p className="text-slate-500 text-sm font-medium text-center">{mentor.experience}</p>
+                          </div>
                         </div>
 
                         <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300">

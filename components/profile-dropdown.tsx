@@ -66,22 +66,22 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
           {/* Profile info section */}
           <div className="px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+              <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
                 {profile?.profile_image_url ? (
                   <img
                     src={profile.profile_image_url || "/placeholder.svg"}
                     alt="Profile"
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-full h-full rounded-full object-cover"
                   />
                 ) : (
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-base font-semibold">{firstLetter}</span>
                   </div>
                 )}
               </div>
-              <div>
-                <p className="font-medium text-gray-900">{displayName}</p>
-                <p className="text-sm text-gray-500">{user?.email}</p>
+              <div className="min-w-0 flex-1">
+                <p className="font-medium text-gray-900 truncate">{displayName}</p>
+                <p className="text-sm text-gray-500 truncate">{user?.email}</p>
               </div>
             </div>
           </div>
