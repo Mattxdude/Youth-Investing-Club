@@ -2,228 +2,287 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
+import Link from "next/link"
+import { ArrowLeft, Calendar, MapPin, GraduationCap, Briefcase, ExternalLink } from "lucide-react"
 import AuthHeader from "@/components/auth-header"
+import MobileMenu from "@/components/mobile-menu"
 
 export default function MiguelPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
+    <div className="min-h-screen bg-background">
       <AuthHeader />
+      <MobileMenu />
 
-      <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white min-h-screen">
-        <div className="max-w-5xl mx-auto px-6 py-20">
-          <div className="text-center mb-20">
-            <div className="mb-10">
+      <section className="gradient-hero py-24 px-6">
+        <div className="max-w-4xl mx-auto">
+          <Link
+            href="/mentors"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Mentors
+          </Link>
+
+          <div className="grid md:grid-cols-2 gap-12 items-start">
+            <div className="text-center">
               <Image
                 src="/images/miguel-gutierrez.png"
                 alt="Miguel Gutierrez"
-                width={250}
-                height={250}
-                className="rounded-3xl mx-auto border-4 border-blue-400 object-cover shadow-2xl ring-8 ring-blue-500/20"
+                width={300}
+                height={300}
+                className="rounded-2xl mx-auto shadow-2xl ring-4 ring-blue-500/20 object-cover"
               />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Miguel Gutierrez
-            </h1>
-            <p className="text-blue-300 text-2xl font-semibold mb-4">Investment Professional & Career Coach</p>
-            <p className="text-slate-300 text-xl">8+ years in investment industry, $700M invested</p>
-          </div>
 
-          <div className="space-y-16">
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-              <CardContent className="p-10">
-                <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
-                  About
-                </h2>
-                <p className="text-slate-200 leading-relaxed text-lg">
-                  I have over eight years of experience in the investment industry, where I've invested $700M across
-                  private equity, venture capital, hedge funds, and public equity. I've had the privilege of
-                  interviewing and investing with some of the world's most successful investors. I've also coached
-                  through programs like Girls Who Invest and Sponsors for Educational Opportunity, helping students
-                  build authentic stories, take on leadership roles, and create thoughtful action plans. One of my
-                  greatest passions is personal finance. I love investing in college and love working with young people
-                  to share what I've learned and to inspire them about the power and importance of investing for their
-                  future.
-                </p>
-              </CardContent>
-            </Card>
+            <div>
+              <Badge variant="secondary" className="bg-primary/10 text-primary mb-4">
+                Investment Professional & Career Coach
+              </Badge>
+              <h1 className="text-4xl font-bold text-foreground mb-4">Miguel Gutierrez</h1>
+              <p className="text-xl text-blue-600 font-semibold mb-6">
+                8+ years in investment industry, $700M invested
+              </p>
 
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-              <CardContent className="p-10">
-                <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
-                  Why do I mentor
-                </h2>
-                <p className="text-slate-200 leading-relaxed text-lg">
-                  In all my roles, I've loved working with college students and those early in their careers, helping
-                  them learn about investing. I find it deeply rewarding to see the impact that mentoring can have on
-                  their personal lives and their families, especially when it comes to personal finance.
-                </p>
-              </CardContent>
-            </Card>
+              <div className="flex items-center gap-2 text-muted-foreground mb-8">
+                <MapPin className="w-4 h-4" />
+                <span>New York, New York</span>
+              </div>
 
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-              <CardContent className="p-10">
-                <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
-                  Work Experience
-                </h2>
-                <div className="space-y-6">
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                        <Image
-                          src="/images/companies/seo-logo.png"
-                          alt="SEO"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Career Coach</h3>
-                        <p className="text-blue-400 font-semibold">SEO (Sponsors for Educational Opportunity)</p>
-                        <p className="text-gray-400">Feb 2022 - Present • New York, New York</p>
-                      </div>
-                    </div>
-                  </div>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                I have over eight years of experience in the investment industry, where I've invested $700M across
+                private equity, venture capital, hedge funds, and public equity. I've had the privilege of interviewing
+                and investing with some of the world's most successful investors.
+              </p>
 
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-white font-bold text-lg">P</span>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Founder</h3>
-                        <p className="text-blue-400 font-semibold">Plum House Investment Management LLC</p>
-                        <p className="text-gray-400">Mar 2022 - Present • New York, New York</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                        <Image
-                          src="/images/companies/gkff-logo.png"
-                          alt="George Kaiser Family Foundation"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Investment Principal</h3>
-                        <p className="text-blue-400 font-semibold">George Kaiser Family Foundation</p>
-                        <p className="text-gray-400">May 2023 - March 2025 • Tulsa, Oklahoma</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                        <Image
-                          src="/images/companies/fremont-logo.png"
-                          alt="Fremont Group"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Investment Associate</h3>
-                        <p className="text-blue-400 font-semibold">Fremont Group</p>
-                        <p className="text-gray-400">Feb 2021 - Mar 2023 • San Francisco, California</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                        <Image
-                          src="/images/companies/mellon-logo.png"
-                          alt="Mellon Foundation"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Investment Analyst</h3>
-                        <p className="text-blue-400 font-semibold">The Andrew W. Mellon Foundation</p>
-                        <p className="text-gray-400">Feb 2019 - Feb 2021 • New York, New York</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="border-l-4 border-blue-500 pl-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                        <Image
-                          src="/images/companies/stellant-logo.png"
-                          alt="Salient Partners"
-                          width={40}
-                          height={40}
-                          className="object-contain"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">Investment Analyst</h3>
-                        <p className="text-blue-400 font-semibold">Salient Partners</p>
-                        <p className="text-gray-400">Jun 2017 - Jan 2019 • Houston, Texas</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
-              <CardContent className="p-10">
-                <h2 className="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-lg"></div>
-                  Education
-                </h2>
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center flex-shrink-0 p-1">
-                      <Image
-                        src="/images/universities/smu-logo.png"
-                        alt="Southern Methodist University"
-                        width={40}
-                        height={40}
-                        className="object-contain"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">Southern Methodist University</h3>
-                      <p className="text-blue-400 font-semibold">MBA, Finance</p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="text-center pt-8">
               <Button
-                className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-4 text-lg font-semibold rounded-xl"
                 asChild
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
               >
                 <a
                   href="https://calendly.com/miguel-youthinvestingnetwork/30min"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Book with Calendly
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Book a Free 30-min Session
                 </a>
               </Button>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="py-16 px-6 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Why I Mentor</h2>
+          <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+            <CardContent className="p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                In all my roles, I've loved working with college students and those early in their careers, helping them
+                learn about investing. I find it deeply rewarding to see the impact that mentoring can have on their
+                personal lives and their families, especially when it comes to personal finance. I've also coached
+                through programs like Girls Who Invest and Sponsors for Educational Opportunity, helping students build
+                authentic stories, take on leadership roles, and create thoughtful action plans.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-12 text-center flex items-center justify-center gap-3">
+            <Briefcase className="w-8 h-8 text-blue-600" />
+            Work Experience
+          </h2>
+          <div className="space-y-8">
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/companies/seo-logo.png"
+                    alt="SEO"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Career Coach</h3>
+                    <p className="text-blue-600 font-semibold mb-2">SEO (Sponsors for Educational Opportunity)</p>
+                    <p className="text-muted-foreground mb-4">Feb 2022 – Present • New York, New York</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Coaching students through career development programs, helping them build authentic stories and
+                      create thoughtful action plans.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-blue-600 font-bold text-lg">P</span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Founder</h3>
+                    <p className="text-blue-600 font-semibold mb-2">Plum House Investment Management LLC</p>
+                    <p className="text-muted-foreground mb-4">Mar 2022 – Present • New York, New York</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Founded and managing investment management firm focused on strategic investment opportunities.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/companies/gkff-logo.png"
+                    alt="George Kaiser Family Foundation"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Investment Principal</h3>
+                    <p className="text-blue-600 font-semibold mb-2">George Kaiser Family Foundation</p>
+                    <p className="text-muted-foreground mb-4">May 2023 – March 2025 • Tulsa, Oklahoma</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Led investment strategies and portfolio management for one of the largest private foundations in
+                      the United States.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/companies/fremont-logo.png"
+                    alt="Fremont Group"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Investment Associate</h3>
+                    <p className="text-blue-600 font-semibold mb-2">Fremont Group</p>
+                    <p className="text-muted-foreground mb-4">Feb 2021 – Mar 2023 • San Francisco, California</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Conducted investment analysis and due diligence across multiple asset classes for family office
+                      investments.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/companies/mellon-logo.png"
+                    alt="Mellon Foundation"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Investment Analyst</h3>
+                    <p className="text-blue-600 font-semibold mb-2">The Andrew W. Mellon Foundation</p>
+                    <p className="text-muted-foreground mb-4">Feb 2019 – Feb 2021 • New York, New York</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Analyzed investment opportunities and supported portfolio management for the foundation's
+                      endowment.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/companies/stellant-logo.png"
+                    alt="Salient Partners"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Investment Analyst</h3>
+                    <p className="text-blue-600 font-semibold mb-2">Salient Partners</p>
+                    <p className="text-muted-foreground mb-4">Jun 2017 – Jan 2019 • Houston, Texas</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Performed investment research and analysis for alternative investment strategies.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-6 bg-muted/30">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-12 text-center flex items-center justify-center gap-3">
+            <GraduationCap className="w-8 h-8 text-blue-600" />
+            Education
+          </h2>
+          <div className="space-y-8">
+            <Card className="bg-background/80 backdrop-blur-sm border-0 shadow-lg">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <Image
+                    src="/images/universities/smu-logo.png"
+                    alt="Southern Methodist University"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-foreground mb-2">Southern Methodist University</h3>
+                    <p className="text-blue-600 font-semibold mb-2">MBA, Finance</p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Advanced degree in Finance with focus on investment management and financial analysis.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-6">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-6">Ready to Start Your Investment Journey?</h2>
+          <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+            Book a free 30-minute consultation with Miguel to get personalized guidance on investing, career
+            development, and building your finance knowledge.
+          </p>
+          <Button
+            asChild
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl transition-colors duration-300"
+          >
+            <a href="https://calendly.com/miguel-youthinvestingnetwork/30min" target="_blank" rel="noopener noreferrer">
+              <Calendar className="w-5 h-5 mr-2" />
+              Schedule Your Free Session
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </a>
+          </Button>
+        </div>
+      </section>
     </div>
   )
 }

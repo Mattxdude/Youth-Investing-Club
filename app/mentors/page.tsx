@@ -64,6 +64,26 @@ export default function MentorsPage() {
       ],
       location: "California, United States",
     },
+    {
+      id: "cole",
+      name: "Cole Bechtel",
+      title: "Economics Student & Investment Leader",
+      specialty: "Public Markets Research, Student Finance Education",
+      experience: "President of UCSB Investment Connection, Portfolio Manager at Dean's Investment Group",
+      image: "/images/cole-bechtel.png",
+      helpWith: [
+        "Public markets research",
+        "Student investing",
+        "Investment fundamentals",
+        "Building finance communities",
+      ],
+      funFacts: [
+        "President of UCSB Investment Connection",
+        "Portfolio Manager at Dean's Investment Group",
+        "Co-founded Stock Investment & Market Analysis Club",
+      ],
+      location: "Santa Barbara, California",
+    },
   ]
 
   return (

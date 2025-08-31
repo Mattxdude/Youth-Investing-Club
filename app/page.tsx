@@ -34,6 +34,14 @@ export default function HomePage() {
       experience: "Active in college investment programs and research",
       image: "/images/valentino-curtis.png",
     },
+    {
+      id: "cole",
+      name: "Cole Bechtel",
+      title: "Economics Student & Investment Leader",
+      specialty: "Public Markets Research, Student Finance Education",
+      experience: "President of UCSB Investment Connection, Portfolio Manager at Dean's Investment Group",
+      image: "/images/cole-bechtel.png",
+    },
   ]
 
   const duplicatedMentors = [...mentors, ...mentors]
