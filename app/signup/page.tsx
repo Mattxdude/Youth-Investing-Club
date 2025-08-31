@@ -9,7 +9,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import Image from "next/image"
+import AuthHeader from "@/components/auth-header"
 
 export default function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false)
@@ -80,49 +80,7 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <header className="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <Image
-                src="/images/graduation-cap-logo.png"
-                alt="Youth Investing Network"
-                width={40}
-                height={40}
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-semibold text-gray-900">Youth Investing Network</span>
-            </Link>
-
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/network" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Network
-              </Link>
-              <Link href="/mentors" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Mentors
-              </Link>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Button asChild variant="default" className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link href="/signup">Join YIN</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent"
-              >
-                <a href="https://form.jotform.com/251635444743055" target="_blank" rel="noopener noreferrer">
-                  Apply to become a mentor
-                </a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <AuthHeader />
 
       <div className="pt-16 flex items-center justify-center px-4 min-h-screen">
         <Card className="w-full max-w-md bg-gray-800 border-gray-700">

@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
-import Image from "next/image"
+import AuthHeader from "@/components/auth-header"
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -17,43 +17,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <Image
-                src="/images/graduation-cap-logo.png"
-                alt="Youth Investing Network"
-                width={40}
-                height={40}
-                className="w-10 h-10"
-              />
-              <span className="text-xl font-semibold text-gray-900">Youth Investing Network</span>
-            </Link>
-
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Home
-              </Link>
-              <Link href="/network" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Network
-              </Link>
-              <Link href="/mentors" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Mentors
-              </Link>
-              <Link href="/dashboard" className="text-blue-600 font-medium">
-                Dashboard
-              </Link>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Button asChild variant="outline">
-                <Link href="/profile-setup">Edit Profile</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+      <AuthHeader />
 
       <div className="flex items-center justify-center p-6 min-h-[calc(100vh-4rem)]">
         <div className="max-w-2xl w-full">

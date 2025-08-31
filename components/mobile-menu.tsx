@@ -3,7 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { X, Menu, User } from "lucide-react"
+import { X, Menu, User, LogOut, Settings, HomeIcon, Users, Network } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 
 interface MobileMenuProps {
   user?: any
@@ -13,9 +15,26 @@ interface MobileMenuProps {
 
 export default function MobileMenu({ user, profile, isLoading }: MobileMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const supabase = createClient()
+  const router = useRouter()
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    closeMenu()
+    router.push("/")
+  }
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2)
+  }
 
   return (
     <>
@@ -45,70 +64,116 @@ export default function MobileMenu({ user, profile, isLoading }: MobileMenuProps
             </button>
           </div>
 
-          <nav className="p-6 space-y-8 bg-white">
+          <nav className="p-6 space-y-6 bg-white">
             {!isLoading && user && (
-              <Link
-                href="/profile"
-                onClick={closeMenu}
-                className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors"
-              >
-                <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
-                  {profile?.profile_image_url ? (
-                    <img
-                      src={profile.profile_image_url || "/placeholder.svg"}
-                      alt="Profile"
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                  ) : (
-                    <User className="w-6 h-6 text-gray-600" />
-                  )}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden">
+                    {profile?.profile_image_url ? (
+                      <img
+                        src={profile.profile_image_url || "/placeholder.svg"}
+                        alt="Profile"
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        {getInitials(profile?.full_name || user.email?.split("@")[0] || "User")}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">
+                      {profile?.full_name || user.email?.split("@")[0] || "User"}
+                    </p>
+                    <p className="text-sm text-gray-600">{user.email}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-gray-900">
-                    {profile?.full_name || user.email?.split("@")[0] || "My Profile"}
-                  </p>
-                  <p className="text-sm text-gray-600">View Profile</p>
+
+                <div className="space-y-2">
+                  <Link
+                    href="/profile"
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <User size={20} />
+                    <span>View Profile</span>
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  >
+                    <Settings size={20} />
+                    <span>Dashboard</span>
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors w-full text-left"
+                  >
+                    <LogOut size={20} />
+                    <span>Sign Out</span>
+                  </button>
                 </div>
-              </Link>
+              </div>
             )}
 
-            <Link
-              href="/"
-              onClick={closeMenu}
-              className="block text-xl font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg transition-all duration-200"
-            >
-              Home
-            </Link>
-            <Link
-              href="/mentors"
-              onClick={closeMenu}
-              className="block text-xl font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg transition-all duration-200"
-            >
-              Mentors
-            </Link>
-            <Link
-              href="/network"
-              onClick={closeMenu}
-              className="block text-xl font-semibold text-gray-800 hover:text-blue-600 hover:bg-blue-50 px-4 py-3 rounded-lg transition-all duration-200"
-            >
-              Network
-            </Link>
-
-            <div className="pt-8 border-t-2 border-gray-100">
-              <Button
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
-                asChild
-              >
-                <a
-                  href="https://form.jotform.com/251635444743055"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMenu}
+            {!isLoading && !user && (
+              <div className="space-y-4">
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  asChild
                 >
-                  Apply to become a mentor
-                </a>
-              </Button>
+                  <Link href="/signup" onClick={closeMenu}>
+                    Join YIN
+                  </Link>
+                </Button>
+              </div>
+            )}
+
+            <div className="space-y-2 pt-4 border-t border-gray-200">
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <HomeIcon size={20} />
+                <span className="text-lg font-medium">Home</span>
+              </Link>
+              <Link
+                href="/mentors"
+                onClick={closeMenu}
+                className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Users size={20} />
+                <span className="text-lg font-medium">Mentors</span>
+              </Link>
+              <Link
+                href="/network"
+                onClick={closeMenu}
+                className="flex items-center gap-3 p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Network size={20} />
+                <span className="text-lg font-medium">Network</span>
+              </Link>
             </div>
+
+            {!isLoading && user && (
+              <div className="pt-4 border-t border-gray-200">
+                <Button
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                  asChild
+                >
+                  <a
+                    href="https://form.jotform.com/251635444743055"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={closeMenu}
+                  >
+                    Apply to become a mentor
+                  </a>
+                </Button>
+              </div>
+            )}
           </nav>
         </div>
       </div>

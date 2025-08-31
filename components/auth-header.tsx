@@ -11,46 +11,38 @@ import ProfileDropdown from "@/components/profile-dropdown"
 export default function AuthHeader() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const supabase = createClient()
 
-  const fetchProfile = async (userId: string, retries = 3) => {
-    for (let i = 0; i < retries; i++) {
-      const { data: profileData } = await supabase
-        .from("profiles")
-        .select("profile_image_url, full_name")
-        .eq("user_id", userId)
-        .single()
+  const fetchProfile = async (userId: string) => {
+    const { data: profileData } = await supabase
+      .from("profiles")
+      .select("profile_image_url, full_name")
+      .eq("user_id", userId)
+      .single()
 
-      if (profileData) {
-        setProfile(profileData)
-        return profileData
-      }
-
-      // Wait a bit before retrying (profile might not be created yet)
-      if (i < retries - 1) {
-        await new Promise((resolve) => setTimeout(resolve, 1000))
-      }
+    if (profileData) {
+      setProfile(profileData)
+    } else {
+      // Create fallback profile immediately
+      setProfile({ full_name: user?.email?.split("@")[0] || "User", profile_image_url: null })
     }
-
-    // If no profile found, create a basic one for display purposes
-    setProfile({ full_name: user?.email?.split("@")[0] || "User", profile_image_url: null })
-    return null
   }
 
   useEffect(() => {
     const getUser = async () => {
+      setIsLoading(true)
+
       const {
         data: { user },
       } = await supabase.auth.getUser()
 
       setUser(user)
+      setIsLoading(false)
 
       if (user) {
-        await fetchProfile(user.id)
+        fetchProfile(user.id)
       }
-
-      setIsLoading(false)
     }
 
     getUser()
@@ -59,16 +51,13 @@ export default function AuthHeader() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("[v0] Auth state change:", event, session?.user?.id)
-
       if (event === "SIGNED_IN" && session?.user) {
         setUser(session.user)
-        setIsLoading(false)
-        await fetchProfile(session.user.id)
+        setProfile({ full_name: session.user.email?.split("@")[0] || "User", profile_image_url: null })
+        fetchProfile(session.user.id)
       } else if (event === "SIGNED_OUT") {
         setUser(null)
         setProfile(null)
-        setIsLoading(false)
       }
     })
 
@@ -114,9 +103,9 @@ export default function AuthHeader() {
         </nav>
 
         <div className="hidden md:flex items-center gap-1 md:gap-4">
-          {user && !isLoading ? (
+          {user ? (
             <ProfileDropdown user={user} profile={profile} />
-          ) : !user && !isLoading ? (
+          ) : !isLoading ? (
             <>
               <Button className="btn-primary px-2 md:px-8 py-2 md:py-3 text-xs md:text-base rounded-lg" asChild>
                 <Link href="/signup">Join YIN</Link>
