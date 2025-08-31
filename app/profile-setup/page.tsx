@@ -113,10 +113,7 @@ export default function ProfileSetupPage() {
         is_public: true,
       }
 
-      const { error: upsertError } = await supabase.from("profiles").upsert(profileData, {
-        onConflict: "user_id",
-        ignoreDuplicates: false,
-      })
+      const { error: upsertError } = await supabase.from("profiles").upsert(profileData)
 
       if (upsertError) {
         throw upsertError
