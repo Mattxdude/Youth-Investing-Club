@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   description:
     "Expert-led finance education and personalized consultations for young investors. Connect with experienced mentors and build your financial knowledge.",
   generator: "v0.app",
+  icons: {
+    icon: "/images/yin-logo.png",
+    shortcut: "/images/yin-logo.png",
+    apple: "/images/yin-logo.png",
+  },
 }
 
 export default function RootLayout({
