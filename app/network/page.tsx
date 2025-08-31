@@ -33,11 +33,7 @@ export default function NetworkPage() {
     async function fetchProfiles() {
       const supabase = createClient()
 
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("is_public", true)
-        .order("created_at", { ascending: false })
+      const { data, error } = await supabase.from("profiles").select("*").order("created_at", { ascending: false })
 
       if (error) {
         console.error("Error fetching profiles:", error)
@@ -97,7 +93,7 @@ export default function NetworkPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
               <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-white mb-2">0</div>
+                <div className="text-3xl font-bold text-white mb-2">{profiles.length}</div>
                 <div className="text-blue-200">Active Members</div>
               </CardContent>
             </Card>
@@ -119,16 +115,59 @@ export default function NetworkPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Meet Our Community</h2>
 
-            <Card className="bg-white/10 backdrop-blur-md border-white/20">
-              <CardContent className="p-12 text-center">
-                <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
-                <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
-                <Button className="btn-primary" asChild>
-                  <Link href="/signup">Join Now</Link>
-                </Button>
-              </CardContent>
-            </Card>
+            {profiles.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {profiles.map((profile) => {
+                  const displayName = profile.full_name || profile.email?.split("@")[0] || "User"
+                  const firstLetter = displayName.charAt(0).toUpperCase()
+
+                  return (
+                    <Card key={profile.id} className="bg-white/10 backdrop-blur-md border-white/20">
+                      <CardContent className="p-6 text-center">
+                        <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center overflow-hidden">
+                          {profile.profile_image_url ? (
+                            <img
+                              src={profile.profile_image_url || "/placeholder.svg"}
+                              alt={displayName}
+                              className="w-16 h-16 rounded-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xl font-semibold">{firstLetter}</span>
+                            </div>
+                          )}
+                        </div>
+                        <h3 className="text-lg font-semibold text-white mb-2">{displayName}</h3>
+                        {profile.location && <p className="text-blue-200 text-sm mb-2">{profile.location}</p>}
+                        {profile.about_me && (
+                          <p className="text-blue-200 text-sm mb-4 line-clamp-2">{profile.about_me}</p>
+                        )}
+                        {profile.interests && profile.interests.length > 0 && (
+                          <div className="flex flex-wrap gap-1 justify-center">
+                            {profile.interests.slice(0, 3).map((interest, index) => (
+                              <span key={index} className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full">
+                                {interest}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+            ) : (
+              <Card className="bg-white/10 backdrop-blur-md border-white/20">
+                <CardContent className="p-12 text-center">
+                  <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
+                  <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
+                  <Button className="btn-primary" asChild>
+                    <Link href="/signup">Join Now</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
       </section>

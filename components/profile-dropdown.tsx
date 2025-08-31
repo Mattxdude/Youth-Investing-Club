@@ -32,17 +32,12 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
     window.location.href = "/"
   }
 
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("")
-      .toUpperCase()
-      .slice(0, 2)
+  const getFirstLetter = (name: string) => {
+    return name.charAt(0).toUpperCase()
   }
 
   const displayName = profile?.full_name || user?.email?.split("@")[0] || "User"
-  const initials = getInitials(displayName)
+  const firstLetter = getFirstLetter(displayName)
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -59,7 +54,7 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
             />
           ) : (
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-sm font-semibold">{initials}</span>
+              <span className="text-white text-sm font-semibold">{firstLetter}</span>
             </div>
           )}
         </div>
@@ -80,7 +75,7 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
                   />
                 ) : (
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span className="text-white text-base font-semibold">{initials}</span>
+                    <span className="text-white text-base font-semibold">{firstLetter}</span>
                   </div>
                 )}
               </div>
