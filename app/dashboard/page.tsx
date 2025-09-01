@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
 import AuthHeader from "@/components/auth-header"
+import ConnectionsManager from "@/components/connections-manager"
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -19,8 +20,9 @@ export default async function DashboardPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
       <AuthHeader />
 
-      <div className="flex items-center justify-center p-6 min-h-[calc(100vh-4rem)]">
-        <div className="max-w-2xl w-full">
+      <div className="p-6 pt-20">
+        <div className="max-w-6xl mx-auto space-y-8">
+          {/* Profile Overview Card */}
           <Card className="bg-white/10 backdrop-blur-md border-white/20">
             <CardContent className="p-8">
               <div className="text-center mb-8">
@@ -102,6 +104,8 @@ export default async function DashboardPage() {
               </div>
             </CardContent>
           </Card>
+
+          <ConnectionsManager />
         </div>
       </div>
     </div>

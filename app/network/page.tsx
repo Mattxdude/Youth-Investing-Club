@@ -122,37 +122,52 @@ export default function NetworkPage() {
                   const firstLetter = displayName.charAt(0).toUpperCase()
 
                   return (
-                    <Card key={profile.id} className="bg-white/10 backdrop-blur-md border-white/20">
-                      <CardContent className="p-6 text-center">
-                        <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center overflow-hidden">
-                          {profile.profile_image_url ? (
-                            <img
-                              src={profile.profile_image_url || "/placeholder.svg"}
-                              alt={displayName}
-                              className="w-16 h-16 rounded-full object-cover"
-                            />
-                          ) : (
-                            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                              <span className="text-white text-xl font-semibold">{firstLetter}</span>
+                    <Link key={profile.id} href={`/profile/${profile.id}`}>
+                      <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer transform hover:scale-105 group">
+                        <CardContent className="p-6 text-center">
+                          <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center overflow-hidden">
+                            {profile.profile_image_url ? (
+                              <img
+                                src={profile.profile_image_url || "/placeholder.svg"}
+                                alt={displayName}
+                                className="w-16 h-16 rounded-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <span className="text-white text-xl font-semibold">{firstLetter}</span>
+                              </div>
+                            )}
+                          </div>
+                          <h3 className="text-lg font-semibold text-white mb-2 hover:text-blue-200 transition-colors">
+                            {displayName}
+                          </h3>
+                          {profile.location && <p className="text-blue-200 text-sm mb-2">{profile.location}</p>}
+                          {profile.about_me && (
+                            <p className="text-blue-200 text-sm mb-4 line-clamp-2">{profile.about_me}</p>
+                          )}
+                          {profile.interests && profile.interests.length > 0 && (
+                            <div className="flex flex-wrap gap-1 justify-center">
+                              {profile.interests.slice(0, 3).map((interest, index) => (
+                                <span
+                                  key={index}
+                                  className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full"
+                                >
+                                  {interest}
+                                </span>
+                              ))}
+                              {profile.interests.length > 3 && (
+                                <span className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full">
+                                  +{profile.interests.length - 3} more
+                                </span>
+                              )}
                             </div>
                           )}
-                        </div>
-                        <h3 className="text-lg font-semibold text-white mb-2">{displayName}</h3>
-                        {profile.location && <p className="text-blue-200 text-sm mb-2">{profile.location}</p>}
-                        {profile.about_me && (
-                          <p className="text-blue-200 text-sm mb-4 line-clamp-2">{profile.about_me}</p>
-                        )}
-                        {profile.interests && profile.interests.length > 0 && (
-                          <div className="flex flex-wrap gap-1 justify-center">
-                            {profile.interests.slice(0, 3).map((interest, index) => (
-                              <span key={index} className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full">
-                                {interest}
-                              </span>
-                            ))}
+                          <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-blue-300 text-sm font-medium">Click to view profile →</span>
                           </div>
-                        )}
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </Link>
                   )
                 })}
               </div>

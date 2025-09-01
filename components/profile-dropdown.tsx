@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
-import { User, Settings, LogOut, ChevronDown } from "lucide-react"
+import { User, Settings, LogOut, ChevronDown, Users } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
 interface ProfileDropdownProps {
@@ -89,7 +89,15 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
           {/* Menu items */}
           <div className="py-1">
             <Link
-              href="/profile"
+              href="/dashboard"
+              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <Settings className="w-4 h-4" />
+              Dashboard
+            </Link>
+            <Link
+              href={`/profile/${profile?.id}`}
               className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
               onClick={() => setIsOpen(false)}
             >
@@ -105,12 +113,12 @@ export default function ProfileDropdown({ user, profile }: ProfileDropdownProps)
               Edit Profile
             </Link>
             <Link
-              href="/dashboard"
+              href="/connections"
               className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              <Settings className="w-4 h-4" />
-              Dashboard
+              <Users className="w-4 h-4" />
+              My Connections
             </Link>
           </div>
 

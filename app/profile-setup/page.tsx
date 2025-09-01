@@ -96,7 +96,10 @@ export default function ProfileSetupPage() {
         .map((interest) => interest.trim())
         .filter((interest) => interest.length > 0)
 
+      const { data: existingProfile } = await supabase.from("profiles").select("id").eq("user_id", user.id).single()
+
       const profileData = {
+        id: existingProfile?.id || user.id, // Use existing ID or user.id for new profiles
         user_id: user.id,
         full_name: `${firstName} ${lastName}`.trim() || null,
         email: user.email || null,
@@ -113,11 +116,11 @@ export default function ProfileSetupPage() {
         is_public: true,
       }
 
-      const { error: insertError } = await supabase.from("profiles").insert(profileData)
+      const { error: saveError } = await supabase.from("profiles").insert(profileData).select()
 
-      if (insertError) {
+      if (saveError) {
         // If insert fails due to existing record, try update instead
-        if (insertError.code === "23505") {
+        if (saveError.code === "23505") {
           // Unique constraint violation
           const { error: updateError } = await supabase.from("profiles").update(profileData).eq("user_id", user.id)
 
@@ -125,14 +128,14 @@ export default function ProfileSetupPage() {
             throw updateError
           }
         } else {
-          throw insertError
+          throw saveError
         }
       }
 
       router.push("/dashboard")
     } catch (error: any) {
       console.error("Profile save error:", error)
-      setError(error.message)
+      setError(`Failed to save profile: ${error.message}`)
     } finally {
       setIsLoading(false)
     }
