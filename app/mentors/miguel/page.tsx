@@ -252,7 +252,7 @@ export default function MiguelPage() {
                   />
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-foreground mb-2">Southern Methodist University</h3>
-                    <p className="text-blue-600 font-semibold mb-2">MBA, Finance</p>
+                    <p className="text-blue-600 font-semibold mb-2">BBA, Finance</p>
                     <p className="text-muted-foreground leading-relaxed">
                       Advanced degree in Finance with focus on investment management and financial analysis.
                     </p>
