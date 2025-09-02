@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/client"
-import { User } from "lucide-react"
+import { User, Lock } from "lucide-react"
 import { useEffect, useState } from "react"
 import AuthHeader from "@/components/auth-header"
 
@@ -28,22 +28,42 @@ interface Profile {
 export default function NetworkPage() {
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [loading, setLoading] = useState(true)
+  const [currentUser, setCurrentUser] = useState<any>(null)
 
   useEffect(() => {
     async function fetchProfiles() {
       const supabase = createClient()
 
-      const { data, error } = await supabase.from("profiles").select("*").order("created_at", { ascending: false })
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      setCurrentUser(user)
+
+      const { data, error } = await supabase.from("profiles").select("*").order("updated_at", { ascending: false })
 
       if (error) {
         console.error("Error fetching profiles:", error)
       } else {
+        console.log("[v0] Fetched profiles:", data?.length)
         setProfiles(data || [])
       }
       setLoading(false)
     }
 
     fetchProfiles()
+
+    const supabase = createClient()
+    const subscription = supabase
+      .channel("profiles-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "profiles" }, (payload) => {
+        console.log("[v0] Profile change detected:", payload)
+        fetchProfiles()
+      })
+      .subscribe()
+
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [])
 
   const publicProfiles = profiles
@@ -56,7 +76,7 @@ export default function NetworkPage() {
         <div className="pt-16 flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading connections...</p>
+            <p className="mt-4 text-gray-600">Loading network...</p>
           </div>
         </div>
       </div>
@@ -99,7 +119,7 @@ export default function NetworkPage() {
             </Card>
             <Card className="bg-white/10 backdrop-blur-md border-white/20">
               <CardContent className="p-6 text-center">
-                <div className="text-3xl font-bold text-white mb-2">3</div>
+                <div className="text-3xl font-bold text-white mb-2">4</div>
                 <div className="text-blue-200">Expert Mentors</div>
               </CardContent>
             </Card>
@@ -115,74 +135,106 @@ export default function NetworkPage() {
           <div className="mb-16">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">Meet Our Community</h2>
 
-            {profiles.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {profiles.map((profile) => {
-                  const displayName = profile.full_name || profile.email?.split("@")[0] || "User"
-                  const firstLetter = displayName.charAt(0).toUpperCase()
+            <div className="relative">
+              {profiles.length > 0 ? (
+                <div
+                  className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${!currentUser ? "blur-sm" : ""}`}
+                >
+                  {profiles.map((profile) => {
+                    const displayName = profile.full_name || profile.email?.split("@")[0] || "User"
+                    const firstLetter = displayName.charAt(0).toUpperCase()
 
-                  return (
-                    <Link key={profile.id} href={`/profile/${profile.id}`}>
-                      <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer transform hover:scale-105 group">
-                        <CardContent className="p-6 text-center">
-                          <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center overflow-hidden">
-                            {profile.profile_image_url ? (
-                              <img
-                                src={profile.profile_image_url || "/placeholder.svg"}
-                                alt={displayName}
-                                className="w-16 h-16 rounded-full object-cover"
-                              />
-                            ) : (
-                              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                <span className="text-white text-xl font-semibold">{firstLetter}</span>
+                    return (
+                      <div key={profile.id} className={!currentUser ? "pointer-events-none" : ""}>
+                        <Link href={`/profile/${profile.id}`}>
+                          <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer transform hover:scale-105 group">
+                            <CardContent className="p-6 text-center">
+                              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center overflow-hidden">
+                                {profile.profile_image_url ? (
+                                  <img
+                                    src={profile.profile_image_url || "/placeholder.svg"}
+                                    alt={displayName}
+                                    className="w-16 h-16 rounded-full object-cover"
+                                  />
+                                ) : (
+                                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <span className="text-white text-xl font-semibold">{firstLetter}</span>
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </div>
-                          <h3 className="text-lg font-semibold text-white mb-2 hover:text-blue-200 transition-colors">
-                            {displayName}
-                          </h3>
-                          {profile.location && <p className="text-blue-200 text-sm mb-2">{profile.location}</p>}
-                          {profile.about_me && (
-                            <p className="text-blue-200 text-sm mb-4 line-clamp-2">{profile.about_me}</p>
-                          )}
-                          {profile.interests && profile.interests.length > 0 && (
-                            <div className="flex flex-wrap gap-1 justify-center">
-                              {profile.interests.slice(0, 3).map((interest, index) => (
-                                <span
-                                  key={index}
-                                  className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full"
-                                >
-                                  {interest}
-                                </span>
-                              ))}
-                              {profile.interests.length > 3 && (
-                                <span className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full">
-                                  +{profile.interests.length - 3} more
-                                </span>
+                              <h3 className="text-lg font-semibold text-white mb-2 hover:text-blue-200 transition-colors">
+                                {displayName}
+                              </h3>
+                              {profile.location && <p className="text-blue-200 text-sm mb-2">{profile.location}</p>}
+                              {profile.about_me && (
+                                <p className="text-blue-200 text-sm mb-4 line-clamp-2">{profile.about_me}</p>
                               )}
-                            </div>
-                          )}
-                          <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-blue-300 text-sm font-medium">Click to view profile →</span>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  )
-                })}
-              </div>
-            ) : (
-              <Card className="bg-white/10 backdrop-blur-md border-white/20">
-                <CardContent className="p-12 text-center">
-                  <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
-                  <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
-                  <Button className="btn-primary" asChild>
-                    <Link href="/signup">Join Now</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+                              {profile.interests && profile.interests.length > 0 && (
+                                <div className="flex flex-wrap gap-1 justify-center">
+                                  {profile.interests.slice(0, 3).map((interest, index) => (
+                                    <span
+                                      key={index}
+                                      className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full"
+                                    >
+                                      {interest}
+                                    </span>
+                                  ))}
+                                  {profile.interests.length > 3 && (
+                                    <span className="px-2 py-1 bg-blue-500/20 text-blue-200 text-xs rounded-full">
+                                      +{profile.interests.length - 3} more
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                              <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-blue-300 text-sm font-medium">Click to view profile →</span>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <Card className="bg-white/10 backdrop-blur-md border-white/20">
+                  <CardContent className="p-12 text-center">
+                    <User className="w-16 h-16 text-blue-300 mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-white mb-2">No Members Yet</h3>
+                    <p className="text-blue-200 mb-6">Be the first to join our growing community!</p>
+                    <Button className="btn-primary" asChild>
+                      <Link href="/signup">Join Now</Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+
+              {!currentUser && profiles.length > 0 && (
+                <div className="fixed inset-0 top-16 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-50">
+                  <Card className="bg-white/95 backdrop-blur-md border-white/20 max-w-lg mx-4">
+                    <CardContent className="p-12 text-center">
+                      <Lock className="w-20 h-20 text-blue-600 mx-auto mb-6" />
+                      <h3 className="text-3xl font-semibold text-slate-900 mb-6">Join to See Members</h3>
+                      <p className="text-slate-600 mb-8 text-xl leading-relaxed">
+                        Sign up or sign in to connect with our community of young investors and view member profiles.
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button className="btn-primary px-8 py-4 text-lg rounded-lg" asChild>
+                          <Link href="/signup">Join YIN</Link>
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="border-2 border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-4 text-lg rounded-lg bg-transparent"
+                          asChild
+                        >
+                          <Link href="/signin">Sign In</Link>
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

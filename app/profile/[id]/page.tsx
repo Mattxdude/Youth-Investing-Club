@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, MapPin, Calendar, ExternalLink, User, UserPlus, UserCheck, Clock } from "lucide-react"
+import { ArrowLeft, MapPin, Calendar, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -29,22 +29,12 @@ interface Profile {
   created_at: string
 }
 
-interface Connection {
-  id: string
-  requester_id: string
-  addressee_id: string
-  status: "pending" | "accepted" | "rejected"
-  created_at: string
-}
-
 export default function ProfilePage() {
   const params = useParams()
   const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [currentUser, setCurrentUser] = useState<any>(null)
-  const [connection, setConnection] = useState<Connection | null>(null)
   const [loading, setLoading] = useState(true)
-  const [connectionLoading, setConnectionLoading] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -54,6 +44,12 @@ export default function ProfilePage() {
       const {
         data: { user },
       } = await supabase.auth.getUser()
+
+      if (!user) {
+        router.push("/signin?message=Please sign in to view member profiles")
+        return
+      }
+
       setCurrentUser(user)
 
       // Fetch profile
@@ -70,60 +66,11 @@ export default function ProfilePage() {
       }
 
       setProfile(profileData)
-
-      // Check for existing connection if user is logged in
-      if (user && profileData) {
-        const { data: connectionData } = await supabase
-          .from("connections")
-          .select("*")
-          .or(
-            `and(requester_id.eq.${user.id},addressee_id.eq.${profileData.user_id}),and(requester_id.eq.${profileData.user_id},addressee_id.eq.${user.id})`,
-          )
-          .single()
-
-        setConnection(connectionData)
-      }
-
       setLoading(false)
     }
 
     fetchData()
   }, [params.id, router])
-
-  const handleConnectionRequest = async () => {
-    if (!currentUser || !profile) return
-
-    setConnectionLoading(true)
-    const supabase = createClient()
-
-    if (connection) {
-      if (connection.status === "pending" && connection.addressee_id === currentUser.id) {
-        // Accept connection request
-        const { error } = await supabase.from("connections").update({ status: "accepted" }).eq("id", connection.id)
-
-        if (!error) {
-          setConnection({ ...connection, status: "accepted" })
-        }
-      }
-    } else {
-      // Send connection request
-      const { data, error } = await supabase
-        .from("connections")
-        .insert({
-          requester_id: currentUser.id,
-          addressee_id: profile.user_id,
-          status: "pending",
-        })
-        .select()
-        .single()
-
-      if (!error && data) {
-        setConnection(data)
-      }
-    }
-
-    setConnectionLoading(false)
-  }
 
   if (loading) {
     return (
@@ -158,30 +105,6 @@ export default function ProfilePage() {
   const displayName = profile.full_name || profile.email?.split("@")[0] || "User"
   const firstLetter = displayName.charAt(0).toUpperCase()
   const isOwnProfile = currentUser?.id === profile.user_id
-
-  const getConnectionButtonContent = () => {
-    if (!currentUser) return { text: "Sign In to Connect", icon: User, disabled: true }
-    if (isOwnProfile) return { text: "Your Profile", icon: User, disabled: true }
-
-    if (connection) {
-      switch (connection.status) {
-        case "accepted":
-          return { text: "Connected", icon: UserCheck, disabled: true }
-        case "pending":
-          if (connection.requester_id === currentUser.id) {
-            return { text: "Request Sent", icon: Clock, disabled: true }
-          } else {
-            return { text: "Accept Request", icon: UserPlus, disabled: false }
-          }
-        case "rejected":
-          return { text: "Request Declined", icon: User, disabled: true }
-      }
-    }
-
-    return { text: "Send Connection", icon: UserPlus, disabled: false }
-  }
-
-  const buttonContent = getConnectionButtonContent()
 
   return (
     <div className="min-h-screen bg-background">
@@ -225,17 +148,6 @@ export default function ProfilePage() {
                   <Calendar className="w-4 h-4 mr-2" />
                   Joined {new Date(profile.created_at).toLocaleDateString()}
                 </div>
-
-                {!isOwnProfile && (
-                  <Button
-                    onClick={handleConnectionRequest}
-                    disabled={buttonContent.disabled || connectionLoading}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <buttonContent.icon className="w-4 h-4 mr-2" />
-                    {connectionLoading ? "Loading..." : buttonContent.text}
-                  </Button>
-                )}
               </div>
             </div>
           </div>
@@ -246,6 +158,29 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
+              {!profile.about_me && !profile.experience && !profile.education && (
+                <Card>
+                  <CardContent className="p-6 text-center">
+                    <div className="py-8">
+                      <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl">👋</span>
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Welcome to {displayName}'s Profile</h3>
+                      <p className="text-gray-600">
+                        {isOwnProfile
+                          ? "Complete your profile to help others learn more about you and your investing journey."
+                          : "This member is just getting started on their investing journey. Check back soon for updates!"}
+                      </p>
+                      {isOwnProfile && (
+                        <Button asChild className="mt-4">
+                          <Link href="/profile-setup">Complete Profile</Link>
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* About */}
               {profile.about_me && (
                 <Card>
@@ -296,57 +231,59 @@ export default function ProfilePage() {
               )}
 
               {/* Social Links */}
-              <Card>
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold mb-4">Connect</h3>
-                  <div className="space-y-3">
-                    {profile.linkedin_url && (
-                      <a
-                        href={profile.linkedin_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        LinkedIn
-                      </a>
-                    )}
-                    {profile.twitter_url && (
-                      <a
-                        href={profile.twitter_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Twitter
-                      </a>
-                    )}
-                    {profile.instagram_url && (
-                      <a
-                        href={profile.instagram_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Instagram
-                      </a>
-                    )}
-                    {profile.website_url && (
-                      <a
-                        href={profile.website_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Website
-                      </a>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
+              {(profile.linkedin_url || profile.twitter_url || profile.instagram_url || profile.website_url) && (
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">Connect</h3>
+                    <div className="space-y-3">
+                      {profile.linkedin_url && (
+                        <a
+                          href={profile.linkedin_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          LinkedIn
+                        </a>
+                      )}
+                      {profile.twitter_url && (
+                        <a
+                          href={profile.twitter_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Twitter
+                        </a>
+                      )}
+                      {profile.instagram_url && (
+                        <a
+                          href={profile.instagram_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Instagram
+                        </a>
+                      )}
+                      {profile.website_url && (
+                        <a
+                          href={profile.website_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-2" />
+                          Website
+                        </a>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </div>

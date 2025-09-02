@@ -18,7 +18,7 @@ export default function AuthHeader() {
     const { data: profileData } = await supabase
       .from("profiles")
       .select("profile_image_url, full_name")
-      .eq("user_id", userId)
+      .eq("id", userId)
       .single()
 
     if (profileData) {

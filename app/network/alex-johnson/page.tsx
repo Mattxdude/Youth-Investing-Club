@@ -79,7 +79,6 @@ export default function AlexJohnsonProfile() {
                       <span>Los Angeles, CA</span>
                     </div>
                   </div>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8">Connect</Button>
                 </div>
               </div>
             </CardContent>

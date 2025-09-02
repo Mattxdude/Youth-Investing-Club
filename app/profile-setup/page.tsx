@@ -37,10 +37,26 @@ export default function ProfileSetupPage() {
         data: { user },
         error,
       } = await supabase.auth.getUser()
+
+      console.log("[v0] Auth check - User:", user?.id, "Error:", error)
+
       if (error || !user) {
+        console.log("[v0] No authenticated user, redirecting to signin")
         router.push("/signin")
         return
       }
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      console.log("[v0] Session check:", session?.user?.id)
+
+      if (!session) {
+        console.log("[v0] No active session, redirecting to signin")
+        router.push("/signin")
+        return
+      }
+
       setUser(user)
 
       // Pre-fill name from auth metadata if available
@@ -70,6 +86,17 @@ export default function ProfileSetupPage() {
     setError(null)
 
     try {
+      console.log("[v0] Starting profile save process for user:", user.id)
+
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      if (!session) {
+        throw new Error("No active session. Please sign in again.")
+      }
+
+      console.log("[v0] Active session confirmed for user:", session.user.id)
+
       let profileImageUrl = null
 
       // Upload profile photo if provided
@@ -87,6 +114,7 @@ export default function ProfileSetupPage() {
             data: { publicUrl },
           } = supabase.storage.from("profile-images").getPublicUrl(fileName)
           profileImageUrl = publicUrl
+          console.log("[v0] Profile image uploaded successfully:", profileImageUrl)
         }
       }
 
@@ -96,10 +124,8 @@ export default function ProfileSetupPage() {
         .map((interest) => interest.trim())
         .filter((interest) => interest.length > 0)
 
-      const { data: existingProfile } = await supabase.from("profiles").select("id").eq("user_id", user.id).single()
-
       const profileData = {
-        id: existingProfile?.id || user.id, // Use existing ID or user.id for new profiles
+        id: user.id, // Primary key - use authenticated user's ID
         user_id: user.id,
         full_name: `${firstName} ${lastName}`.trim() || null,
         email: user.email || null,
@@ -114,25 +140,23 @@ export default function ProfileSetupPage() {
         interests: interestsArray.length > 0 ? interestsArray : null,
         profile_image_url: profileImageUrl,
         is_public: true,
+        updated_at: new Date().toISOString(),
       }
 
-      const { error: saveError } = await supabase.from("profiles").insert(profileData).select()
+      console.log("[v0] Profile data to save:", profileData)
+
+      const { data, error: saveError } = await supabase.from("profiles").upsert([profileData]).select()
 
       if (saveError) {
-        // If insert fails due to existing record, try update instead
-        if (saveError.code === "23505") {
-          // Unique constraint violation
-          const { error: updateError } = await supabase.from("profiles").update(profileData).eq("user_id", user.id)
-
-          if (updateError) {
-            throw updateError
-          }
-        } else {
-          throw saveError
-        }
+        console.error("[v0] Profile save error:", saveError)
+        throw saveError
       }
 
-      router.push("/dashboard")
+      console.log("[v0] Profile saved successfully:", data)
+
+      setTimeout(() => {
+        router.push("/dashboard")
+      }, 500)
     } catch (error: any) {
       console.error("Profile save error:", error)
       setError(`Failed to save profile: ${error.message}`)
