@@ -52,7 +52,13 @@ export default function HomePage() {
 
       <StockTicker />
 
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding">
+      <section
+        className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding"
+        style={{
+          background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
+          backgroundColor: "#0f172a !important",
+        }}
+      >
         <div className="max-w-6xl mx-auto text-center">
           <div className="mb-16">
             <Image
@@ -64,7 +70,10 @@ export default function HomePage() {
             />
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-12 text-white leading-tight hover:scale-105 transition-all duration-500 cursor-pointer">
+          <h1
+            className="text-5xl md:text-7xl font-bold mb-12 text-white leading-tight hover:scale-105 transition-all duration-500 cursor-pointer"
+            style={{ color: "#ffffff !important" }}
+          >
             Empowering Youth with Financial
             <br />
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -72,21 +81,32 @@ export default function HomePage() {
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer">
+          <p
+            className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer"
+            style={{ color: "#cbd5e1 !important" }}
+          >
             Youth Investing Network offers expert-led finance education and personalized consultations for young
             investors in the US.
           </p>
 
           <div className="mb-32">
             <Link href="/mentors">
-              <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105">
+              <Button
+                className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                style={{
+                  background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
+                  color: "#ffffff !important",
+                }}
+              >
                 🚀 Book a Free Online Consultation
               </Button>
             </Link>
           </div>
 
           <div className="mt-32">
-            <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">Meet Our Mentors</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white" style={{ color: "#ffffff !important" }}>
+              Meet Our Mentors
+            </h2>
 
             <div className="relative overflow-hidden px-8 py-4">
               <div className="flex animate-slide-continuous gap-8" style={{ width: "max-content" }}>
@@ -136,6 +156,87 @@ export default function HomePage() {
               >
                 View all mentors →
               </Link>
+            </div>
+          </div>
+
+          <div className="mt-32">
+            <div
+              style={{
+                background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
+                backgroundColor: "#0f172a !important",
+                padding: "2rem 0",
+              }}
+            >
+              <h2
+                className="text-4xl md:text-5xl font-bold mb-20 text-white text-center"
+                style={{
+                  color: "#ffffff !important",
+                  background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
+                  backgroundColor: "#0f172a !important",
+                }}
+              >
+                What Students Say
+              </h2>
+
+              <div className="relative max-w-5xl mx-auto px-8">
+                <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+                  <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-blue-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                      M
+                    </div>
+                    <p className="text-slate-700 font-medium mb-3 leading-relaxed">
+                      "I learned a lot although I did not know anything before"
+                    </p>
+                    <p className="text-blue-600 font-bold text-sm">- Mason B</p>
+                  </div>
+
+                  <div className="review-bubble animate-float-2 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-purple-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                      A
+                    </div>
+                    <p className="text-slate-700 font-medium mb-3 leading-relaxed">"Very helpful!"</p>
+                    <p className="text-purple-600 font-bold text-sm">- Annie N</p>
+                  </div>
+
+                  <div className="review-bubble animate-float-3 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-cyan-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                      J
+                    </div>
+                    <p className="text-slate-700 font-medium mb-3 leading-relaxed">"This style of learning is smart"</p>
+                    <p className="text-cyan-600 font-bold text-sm">- Josh F</p>
+                  </div>
+
+                  <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-green-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                      J
+                    </div>
+                    <p className="text-slate-700 font-medium mb-3 leading-relaxed">
+                      "Miguel taught me concepts in a simple way"
+                    </p>
+                    <p className="text-green-600 font-bold text-sm">- Justin T</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-center mt-16">
+                <a
+                  href="https://form.jotform.com/252580694569169"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <Button
+                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                    style={{
+                      background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
+                      backgroundColor: "#2563eb !important",
+                      color: "#ffffff !important",
+                    }}
+                  >
+                    Leave a Review
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>

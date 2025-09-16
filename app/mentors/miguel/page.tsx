@@ -47,7 +47,7 @@ export default function MiguelPage() {
 
               <div className="flex items-center gap-2 text-muted-foreground mb-8">
                 <MapPin className="w-4 h-4" />
-                <span>New York, New York</span>
+                <span>Dallas, Texas</span>
               </div>
 
               <p className="text-muted-foreground leading-relaxed mb-8">
