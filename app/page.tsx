@@ -159,24 +159,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-32">
-            <div
-              style={{
-                background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
-                backgroundColor: "#0f172a !important",
-                padding: "2rem 0",
-              }}
-            >
-              <h2
-                className="text-4xl md:text-5xl font-bold mb-20 text-white text-center"
-                style={{
-                  color: "#ffffff !important",
-                  background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
-                  backgroundColor: "#0f172a !important",
-                }}
-              >
-                What Students Say
-              </h2>
+          <div className="mt-32 mb-32">
+            <div className="max-w-6xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">What Our Students Say</h2>
 
               <div className="relative max-w-5xl mx-auto px-8">
                 <div className="flex flex-wrap justify-center gap-8 md:gap-12">
@@ -225,14 +210,7 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="inline-block"
                 >
-                  <Button
-                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-                    style={{
-                      background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
-                      backgroundColor: "#2563eb !important",
-                      color: "#ffffff !important",
-                    }}
-                  >
+                  <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                     Leave a Review
                   </Button>
                 </a>
