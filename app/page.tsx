@@ -42,6 +42,14 @@ export default function HomePage() {
       experience: "President of UCSB Investment Connection, Dean's Investment Group",
       image: "/images/cole-bechtel.png",
     },
+    {
+      id: "melanie",
+      name: "Melanie Silva",
+      title: "Economics Student & Strategic Investment Analyst",
+      specialty: "Wealth Management, Strategic Investments",
+      experience: "UCSB Investment Connection Treasurer, Strategic Investments Certificate",
+      image: "/images/melanie-silva.jpeg",
+    },
   ]
 
   const duplicatedMentors = [...mentors, ...mentors]
@@ -53,7 +61,7 @@ export default function HomePage() {
       <StockTicker />
 
       <section
-        className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding"
+        className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding"
         style={{
           background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
           backgroundColor: "#0f172a !important",
@@ -71,18 +79,23 @@ export default function HomePage() {
           </div>
 
           <h1
-            className="text-5xl md:text-7xl font-bold mb-12 text-white leading-tight hover:scale-105 transition-all duration-500 cursor-pointer"
+            className="hero-heading-forced text-5xl md:text-7xl font-bold mb-12 text-white leading-tight hover:scale-105 transition-all duration-500 cursor-pointer"
             style={{ color: "#ffffff !important" }}
           >
             Empowering Youth with Financial
             <br />
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span
+              className="text-cyan-400"
+              style={{
+                color: "#22d3ee !important",
+              }}
+            >
               Knowledge
             </span>
           </h1>
 
           <p
-            className="text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer"
+            className="hero-paragraph-forced text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer"
             style={{ color: "#cbd5e1 !important" }}
           >
             Youth Investing Network offers expert-led finance education and personalized consultations for young
@@ -92,7 +105,7 @@ export default function HomePage() {
           <div className="mb-32">
             <Link href="/mentors">
               <Button
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
                 style={{
                   background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
                   color: "#ffffff !important",
@@ -116,30 +129,65 @@ export default function HomePage() {
                     href={`/mentors/${mentor.id}#top`}
                     className="block group flex-shrink-0 w-80"
                   >
-                    <Card className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white/95 backdrop-blur-sm transition-all duration-700 h-[650px] mx-2">
-                      <CardContent className="text-center p-8 h-full flex flex-col justify-between">
+                    {/* Fixed card height and improved layout consistency */}
+                    <Card
+                      className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 h-[680px] mx-2"
+                      style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
+                    >
+                      <CardContent
+                        className="text-center p-8 h-full flex flex-col justify-between"
+                        style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
+                      >
                         <div className="flex-1 flex flex-col">
                           <div className="mb-8">
+                            {/* Improved image sizing and aspect ratio consistency */}
                             <Image
                               src={mentor.image || "/placeholder.svg"}
                               alt={mentor.name}
-                              width={220}
-                              height={220}
-                              className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover"
+                              width={240}
+                              height={240}
+                              className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover aspect-square"
                             />
                           </div>
 
-                          <h3 className="text-2xl font-bold text-slate-900 mb-4">{mentor.name}</h3>
+                          <h3
+                            className="text-2xl font-bold mb-4 mentor-name-forced"
+                            style={{
+                              color: "#000000 !important",
+                              backgroundColor: "#ffffff !important",
+                              opacity: "1 !important",
+                            }}
+                          >
+                            {mentor.name}
+                          </h3>
                           <p className="text-blue-600 font-bold mb-4 text-lg">{mentor.title}</p>
-                          <p className="text-slate-600 text-base mb-3 font-medium leading-relaxed">
+                          <p
+                            className="text-slate-600 text-base mb-4 font-medium leading-relaxed"
+                            style={{ color: "#475569 !important" }}
+                          >
                             {mentor.specialty}
                           </p>
-                          <div className="h-12 flex items-center justify-center mb-8">
-                            <p className="text-slate-500 text-sm font-medium text-center">{mentor.experience}</p>
+                          {/* Fixed experience text container height and alignment */}
+                          <div className="flex-1 flex items-start justify-center mb-8">
+                            <p className="text-slate-500 text-sm font-medium text-center leading-relaxed">
+                              {mentor.experience}
+                            </p>
                           </div>
                         </div>
 
-                        <Button className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300">
+                        <Button
+                          className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300 mt-auto"
+                          style={{
+                            backgroundColor: "#2563eb !important",
+                            color: "#ffffff !important",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = "#1d4ed8 !important"
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "#2563eb !important"
+                          }}
+                        >
                           Book a session
                         </Button>
                       </CardContent>
@@ -161,7 +209,9 @@ export default function HomePage() {
 
           <div className="mt-32 mb-32">
             <div className="max-w-6xl mx-auto text-center">
-              <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white">What Our Students Say</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white" style={{ color: "#ffffff !important" }}>
+                What Our Students Say
+              </h2>
 
               <div className="relative max-w-5xl mx-auto px-8">
                 <div className="flex flex-wrap justify-center gap-8 md:gap-12">

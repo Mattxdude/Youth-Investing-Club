@@ -84,6 +84,21 @@ export default function MentorsPage() {
       ],
       location: "Santa Barbara, California",
     },
+    {
+      id: "melanie",
+      name: "Melanie Silva",
+      title: "Economics Student & Strategic Investment Analyst",
+      specialty: "Wealth Management, Strategic Investments",
+      experience: "UCSB Investment Connection Treasurer, Strategic Investments Certificate",
+      image: "/images/melanie-silva.jpeg",
+      helpWith: ["Student investing", "Strategic investments", "College finance planning", "Peer mentoring"],
+      funFacts: [
+        "Treasurer at UCSB Investment Connection",
+        "Strategic Investments Certificate through UCSB PaCE",
+        "Aspiring Wealth Management professional",
+      ],
+      location: "Santa Barbara, California",
+    },
   ]
 
   return (
