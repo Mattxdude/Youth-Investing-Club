@@ -99,6 +99,21 @@ export default function MentorsPage() {
       ],
       location: "Santa Barbara, California",
     },
+    {
+      id: "diya",
+      name: "Diya Deshpande",
+      title: "Economics & Statistical Science Student",
+      specialty: "Investment Banking, Marketing Technology",
+      experience: "Investment Banking Analyst at New York Bay Capital, UCSB Investment Advisory Committee",
+      image: "/images/diya-deshpande.jpg",
+      helpWith: ["Investment banking", "Financial analysis", "Career development", "Student investing"],
+      funFacts: [
+        "Investment Banking Analyst at New York Bay Capital",
+        "Investment Analyst at UCSB Investment Advisory Committee",
+        "Marketing Technology Operations Intern at LinkedIn",
+      ],
+      location: "Santa Barbara, California",
+    },
   ]
 
   return (

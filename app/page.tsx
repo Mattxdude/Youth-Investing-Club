@@ -50,6 +50,14 @@ export default function HomePage() {
       experience: "UCSB Investment Connection Treasurer, Strategic Investments Certificate",
       image: "/images/melanie-silva.jpeg",
     },
+    {
+      id: "diya",
+      name: "Diya Deshpande",
+      title: "Economics & Statistical Science Student",
+      specialty: "Investment Banking, Marketing Technology",
+      experience: "Investment Banking Analyst at New York Bay Capital, UCSB Investment Advisory Committee",
+      image: "/images/diya-deshpande.jpg",
+    },
   ]
 
   const duplicatedMentors = [...mentors, ...mentors]
