@@ -112,9 +112,13 @@ export default function DiyaMentorPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                      NY
-                    </div>
+                    <Image
+                      src="/images/ny-bay-capital-logo.png"
+                      alt="NY Bay Capital"
+                      width={48}
+                      height={48}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-foreground mb-1">Investment Banking Fall Analyst</h3>
@@ -130,7 +134,13 @@ export default function DiyaMentorPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
-                    <Image src="/images/ucsb-logo.png" alt="UCSB" width={48} height={48} className="object-contain" />
+                    <Image
+                      src="/images/ucsb-iac-logo.png"
+                      alt="UCSB IAC"
+                      width={48}
+                      height={48}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-foreground mb-1">Investment Analyst</h3>
@@ -164,9 +174,13 @@ export default function DiyaMentorPage() {
               <CardContent className="p-6">
                 <div className="flex items-start gap-4 mb-4">
                   <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                      NY
-                    </div>
+                    <Image
+                      src="/images/ny-bay-capital-logo.png"
+                      alt="NY Bay Capital"
+                      width={48}
+                      height={48}
+                      className="object-contain"
+                    />
                   </div>
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-foreground mb-1">Investment Banking Summer Analyst</h3>
