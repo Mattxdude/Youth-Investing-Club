@@ -90,7 +90,7 @@ export default function HomePage() {
             className="hero-heading-forced text-5xl md:text-7xl font-bold mb-12 text-white leading-tight hover:scale-105 transition-all duration-500 cursor-pointer"
             style={{ color: "#ffffff !important" }}
           >
-            Empowering Youth with Financial
+            Empowering the Youth with Financial
             <br />
             <span
               className="text-cyan-400"
@@ -106,8 +106,9 @@ export default function HomePage() {
             className="hero-paragraph-forced text-xl md:text-2xl text-slate-300 max-w-4xl mx-auto mb-16 leading-relaxed font-medium hover:scale-105 transition-all duration-500 cursor-pointer"
             style={{ color: "#cbd5e1 !important" }}
           >
-            Youth Investing Network offers expert-led finance education and personalized consultations for young
-            investors in the US.
+            {
+              "Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy"
+            }
           </p>
 
           <div className="mb-32">
