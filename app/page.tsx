@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import StockTicker from "@/components/stock-ticker"
 import FloatingTerms from "@/components/floating-terms"
 import AuthHeader from "@/components/auth-header"
 
@@ -65,8 +64,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <AuthHeader />
-
-      <StockTicker />
 
       <section
         className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 section-padding"
