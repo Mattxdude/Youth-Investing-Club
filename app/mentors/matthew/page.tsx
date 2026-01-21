@@ -62,7 +62,7 @@ export default function MatthewPage() {
                 className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
               >
                 <a
-                  href="https://calendly.com/matthew-youthinvestingnetwork/30min"
+                  href="https://calendly.com/matthanasab/yin-interview"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -238,7 +238,7 @@ export default function MatthewPage() {
             className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-xl transition-colors duration-300"
           >
             <a
-              href="https://calendly.com/matthew-youthinvestingnetwork/30min"
+              href="https://calendly.com/matthanasab/yin-interview"
               target="_blank"
               rel="noopener noreferrer"
             >
