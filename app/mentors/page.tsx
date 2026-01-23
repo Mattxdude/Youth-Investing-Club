@@ -114,6 +114,21 @@ export default function MentorsPage() {
       ],
       location: "Santa Barbara, California",
     },
+    {
+      id: "emiliano",
+      name: "Emiliano Hurtado",
+      title: "Incoming Private Equity Analyst",
+      specialty: "Private Equity, Fixed Income, Portfolio Management",
+      experience: "Incoming PE Analyst at K1 Investment Management, Portfolio Management Intern at Dimensional Fund Advisors",
+      image: "/images/emiliano-hurtado.png",
+      helpWith: ["Private equity careers", "Fixed income analysis", "First-gen student guidance", "Breaking into finance"],
+      funFacts: [
+        "Incoming PE Business Development Analyst at K1 Investment Management",
+        "First-generation college student and community college transfer",
+        "Fixed Income Analyst at UCSB Investment Advisory Committee",
+      ],
+      location: "Santa Barbara, California",
+    },
   ]
 
   return (
@@ -122,13 +137,6 @@ export default function MentorsPage() {
 
       <section className="gradient-hero py-24 px-6">
         <div className="max-w-5xl mx-auto">
-          {/* Breadcrumb */}
-          <div className="mb-6 text-center">
-            <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-primary/10">
-              Meet Our Mentors
-            </Badge>
-          </div>
-
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-8">Find Your Perfect Mentor</h1>

@@ -57,6 +57,14 @@ export default function HomePage() {
       experience: "Investment Banking Analyst at New York Bay Capital, UCSB Investment Advisory Committee",
       image: "/images/diya-deshpande.jpg",
     },
+    {
+      id: "emiliano",
+      name: "Emiliano Hurtado",
+      title: "Incoming PE Analyst",
+      specialty: "Private Equity, Fixed Income",
+      experience: "Incoming PE Analyst at K1 Investment Management, Dimensional Fund Advisors",
+      image: "/images/emiliano-hurtado.png",
+    },
   ]
 
   const duplicatedMentors = [...mentors, ...mentors]
@@ -111,7 +119,7 @@ export default function HomePage() {
           <div className="mb-32">
             <Link href="/mentors">
               <Button
-                className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-16 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-12 py-6 md:px-20 md:py-8 text-xl md:text-3xl font-bold rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
                 style={{
                   background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
                   color: "#ffffff !important",
