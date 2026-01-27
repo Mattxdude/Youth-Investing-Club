@@ -134,91 +134,91 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white" style={{ color: "#ffffff !important" }}>
               Meet Our Mentors
             </h2>
+          </div>
+        </div>
 
-            <div className="relative overflow-hidden px-8 py-4">
-              <div className="flex animate-slide-continuous gap-8" style={{ width: "max-content" }}>
-                {duplicatedMentors.map((mentor, index) => (
-                  <Link
-                    key={`${mentor.id}-${index}`}
-                    href={`/mentors/${mentor.id}#top`}
-                    className="block group flex-shrink-0 w-80"
-                  >
-                    {/* Fixed card height and improved layout consistency */}
-                    <Card
-                      className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 h-[680px] mx-2"
-                      style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
-                    >
-                      <CardContent
-                        className="text-center p-8 h-full flex flex-col justify-between"
-                        style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
-                      >
-                        <div className="flex-1 flex flex-col">
-                          <div className="mb-8">
-                            {/* Improved image sizing and aspect ratio consistency */}
-                            <Image
-                              src={mentor.image || "/placeholder.svg"}
-                              alt={mentor.name}
-                              width={240}
-                              height={240}
-                              className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover aspect-square"
-                            />
-                          </div>
-
-                          <h3
-                            className="text-2xl font-bold mb-4 mentor-name-forced"
-                            style={{
-                              color: "#000000 !important",
-                              backgroundColor: "#ffffff !important",
-                              opacity: "1 !important",
-                            }}
-                          >
-                            {mentor.name}
-                          </h3>
-                          <p className="text-blue-600 font-bold mb-4 text-lg">{mentor.title}</p>
-                          <p
-                            className="text-slate-600 text-base mb-4 font-medium leading-relaxed"
-                            style={{ color: "#475569 !important" }}
-                          >
-                            {mentor.specialty}
-                          </p>
-                          {/* Fixed experience text container height and alignment */}
-                          <div className="flex-1 flex items-start justify-center mb-8">
-                            <p className="text-slate-500 text-sm font-medium text-center leading-relaxed">
-                              {mentor.experience}
-                            </p>
-                          </div>
-                        </div>
-
-                        <Button
-                          className="bg-blue-600 hover:bg-blue-700 text-white w-full text-base py-4 rounded-xl transition-colors duration-300 mt-auto"
-                          style={{
-                            backgroundColor: "#2563eb !important",
-                            color: "#ffffff !important",
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = "#1d4ed8 !important"
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = "#2563eb !important"
-                          }}
-                        >
-                          Book a session
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-8">
+        {/* Full-width carousel section - breaks out of container */}
+        <div className="relative overflow-hidden py-4 w-screen -ml-[50vw] left-1/2">
+          <div className="flex animate-slide-continuous gap-4 md:gap-8" style={{ width: "max-content" }}>
+            {duplicatedMentors.map((mentor, index) => (
               <Link
-                href="/mentors"
-                className="text-blue-400 hover:text-blue-300 font-bold text-xl transition-all duration-300 interactive-element"
+                key={`${mentor.id}-${index}`}
+                href={`/mentors/${mentor.id}#top`}
+                className="block group flex-shrink-0 w-64 md:w-80"
               >
-                View all mentors →
+                <Card
+                  className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 h-[520px] md:h-[680px] mx-1 md:mx-2"
+                  style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
+                >
+                  <CardContent
+                    className="text-center p-4 md:p-8 h-full flex flex-col justify-between"
+                    style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
+                  >
+                    <div className="flex-1 flex flex-col">
+                      <div className="mb-4 md:mb-8">
+                        <Image
+                          src={mentor.image || "/placeholder.svg"}
+                          alt={mentor.name}
+                          width={240}
+                          height={240}
+                          className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover aspect-square w-40 h-40 md:w-60 md:h-60"
+                        />
+                      </div>
+
+                      <h3
+                        className="text-lg md:text-2xl font-bold mb-2 md:mb-4 mentor-name-forced"
+                        style={{
+                          color: "#000000 !important",
+                          backgroundColor: "#ffffff !important",
+                          opacity: "1 !important",
+                        }}
+                      >
+                        {mentor.name}
+                      </h3>
+                      <p className="text-blue-600 font-bold mb-2 md:mb-4 text-sm md:text-lg">{mentor.title}</p>
+                      <p
+                        className="text-slate-600 text-xs md:text-base mb-2 md:mb-4 font-medium leading-relaxed"
+                        style={{ color: "#475569 !important" }}
+                      >
+                        {mentor.specialty}
+                      </p>
+                      <div className="flex-1 flex items-start justify-center mb-4 md:mb-8">
+                        <p className="text-slate-500 text-xs md:text-sm font-medium text-center leading-relaxed">
+                          {mentor.experience}
+                        </p>
+                      </div>
+                    </div>
+
+                    <Button
+                      className="bg-blue-600 hover:bg-blue-700 text-white w-full text-sm md:text-base py-3 md:py-4 rounded-xl transition-colors duration-300 mt-auto"
+                      style={{
+                        backgroundColor: "#2563eb !important",
+                        color: "#ffffff !important",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#1d4ed8 !important"
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "#2563eb !important"
+                      }}
+                    >
+                      Book a session
+                    </Button>
+                  </CardContent>
+                </Card>
               </Link>
-            </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="mt-8">
+            <Link
+              href="/mentors"
+              className="text-blue-400 hover:text-blue-300 font-bold text-xl transition-all duration-300 interactive-element"
+            >
+              View all mentors →
+            </Link>
           </div>
 
           <div className="mt-32 mb-32">
