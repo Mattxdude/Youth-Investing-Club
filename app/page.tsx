@@ -44,9 +44,9 @@ export default function HomePage() {
     {
       id: "melanie",
       name: "Melanie Silva",
-      title: "Economics Student & Strategic Investment Analyst",
+      title: "Economics Student & Investment Analyst",
       specialty: "Wealth Management, Strategic Investments",
-      experience: "UCSB Investment Connection Treasurer, Strategic Investments Certificate",
+      experience: "UCSB Investment Connection Treasurer",
       image: "/images/melanie-silva.jpeg",
     },
     {
