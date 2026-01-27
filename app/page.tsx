@@ -4,26 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown } from "lucide-react"
-import { useState, useEffect } from "react"
 import FloatingTerms from "@/components/floating-terms"
 import AuthHeader from "@/components/auth-header"
 
 export default function HomePage() {
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setShowScrollIndicator(false)
-      } else {
-        setShowScrollIndicator(true)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
   const mentors = [
     {
       id: "miguel",
@@ -89,102 +73,61 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <AuthHeader />
 
-      {/* Hero Section - Fits viewport */}
+      {/* Hero Section - Fits within viewport */}
       <section
-        className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen flex flex-col justify-center px-4 py-8"
+        className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 min-h-screen flex flex-col"
         style={{
           background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
           backgroundColor: "#0f172a !important",
         }}
       >
-        <div className="max-w-6xl mx-auto text-center flex-1 flex flex-col justify-center">
-          <div className="mb-6 md:mb-8">
-            <Image
-              src="/images/graduation-cap-logo.png"
-              alt="Youth Investing Network"
-              width={80}
-              height={80}
-              className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer"
-            />
-          </div>
+        <div className="flex-1 flex flex-col justify-center items-center px-4 py-8 md:py-12">
+          <div className="max-w-6xl mx-auto text-center">
+            <div className="mb-6 md:mb-8">
+              <Image
+                src="/images/graduation-cap-logo.png"
+                alt="Youth Investing Network"
+                width={80}
+                height={80}
+                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer"
+              />
+            </div>
 
-          <h1
-            className="hero-heading-forced text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 text-white leading-tight"
-            style={{ color: "#ffffff !important" }}
-          >
-            Empowering the Youth with Financial
-            <br />
-            <span
-              className="text-cyan-400"
-              style={{
-                color: "#22d3ee !important",
-              }}
+            <h1
+              className="hero-heading-forced text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 text-white leading-tight"
+              style={{ color: "#ffffff !important" }}
             >
-              Knowledge
-            </span>
-          </h1>
-
-          <p
-            className="hero-paragraph-forced text-base md:text-xl text-slate-300 max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed font-medium"
-            style={{ color: "#cbd5e1 !important" }}
-          >
-            Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy
-          </p>
-
-          <div className="mb-6 md:mb-8">
-            <Link href="/mentors">
-              <Button
-                className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-12 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+              Empowering the Youth with Financial
+              <br />
+              <span
+                className="text-cyan-400"
                 style={{
-                  background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
-                  color: "#ffffff !important",
+                  color: "#22d3ee !important",
                 }}
               >
-                Book a Free Meeting
-              </Button>
-            </Link>
-          </div>
+                Knowledge
+              </span>
+            </h1>
 
-          {/* Action Buttons Row */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mb-6 md:mb-8">
-            <a
-              href="https://form.jotform.com/252580694569169"
-              target="_blank"
-              rel="noopener noreferrer"
+            <p
+              className="hero-paragraph-forced text-base md:text-xl lg:text-2xl text-slate-300 max-w-3xl mx-auto mb-6 md:mb-8 leading-relaxed font-medium"
+              style={{ color: "#cbd5e1 !important" }}
             >
-              <Button
-                variant="outline"
-                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-6 py-3 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[180px] transition-all duration-300"
-              >
-                Become a Mentor
-              </Button>
-            </a>
-            <Link href="/mentors">
-              <Button
-                variant="outline"
-                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-6 py-3 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[180px] transition-all duration-300"
-              >
-                Our Mentors
-              </Button>
-            </Link>
-            <Link href="/network">
-              <Button
-                variant="outline"
-                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-6 py-3 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[180px] transition-all duration-300"
-              >
-                Network
-              </Button>
-            </Link>
-          </div>
+              Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy
+            </p>
 
-          {/* Scroll Down Indicator */}
-          <div
-            className={`flex flex-col items-center transition-opacity duration-500 ${
-              showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          >
-            <div className="animate-bounce">
-              <ChevronDown className="w-8 h-8 text-white" />
+            <div className="mb-8">
+              <Link href="/mentors">
+                <Button
+                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-12 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                  style={{
+                    background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
+                    color: "#ffffff !important",
+                  }}
+                >
+                  Book a Free Meeting
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -199,7 +142,7 @@ export default function HomePage() {
         }}
       >
         <div className="max-w-6xl mx-auto text-center px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-white" style={{ color: "#ffffff !important" }}>
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 md:mb-16 text-white" style={{ color: "#ffffff !important" }}>
             Meet Our Mentors
           </h2>
         </div>
@@ -286,7 +229,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Reviews Section */}
+      {/* What Our Students Say Section */}
       <section
         className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-16 md:py-24"
         style={{
@@ -295,63 +238,61 @@ export default function HomePage() {
         }}
       >
         <div className="max-w-6xl mx-auto text-center px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white" style={{ color: "#ffffff !important" }}>
-              What Our Students Say
-            </h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 md:mb-16 text-white" style={{ color: "#ffffff !important" }}>
+            What Our Students Say
+          </h2>
 
-            <div className="relative max-w-5xl mx-auto px-8">
-              <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-                <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-blue-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                    M
-                  </div>
-                  <p className="text-slate-700 font-medium mb-3 leading-relaxed">
-                    "I learned a lot although I did not know anything before"
-                  </p>
-                  <p className="text-blue-600 font-bold text-sm">- Mason B</p>
+          <div className="relative max-w-5xl mx-auto px-8">
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12">
+              <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-blue-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                  M
                 </div>
+                <p className="text-slate-700 font-medium mb-3 leading-relaxed">
+                  "I learned a lot although I did not know anything before"
+                </p>
+                <p className="text-blue-600 font-bold text-sm">- Mason B</p>
+              </div>
 
-                <div className="review-bubble animate-float-2 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-purple-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                    A
-                  </div>
-                  <p className="text-slate-700 font-medium mb-3 leading-relaxed">"Very helpful!"</p>
-                  <p className="text-purple-600 font-bold text-sm">- Annie N</p>
+              <div className="review-bubble animate-float-2 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-purple-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                  A
                 </div>
+                <p className="text-slate-700 font-medium mb-3 leading-relaxed">"Very helpful!"</p>
+                <p className="text-purple-600 font-bold text-sm">- Annie N</p>
+              </div>
 
-                <div className="review-bubble animate-float-3 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-cyan-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                    J
-                  </div>
-                  <p className="text-slate-700 font-medium mb-3 leading-relaxed">"This style of learning is smart"</p>
-                  <p className="text-cyan-600 font-bold text-sm">- Josh F</p>
+              <div className="review-bubble animate-float-3 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-cyan-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-cyan-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                  J
                 </div>
+                <p className="text-slate-700 font-medium mb-3 leading-relaxed">"This style of learning is smart"</p>
+                <p className="text-cyan-600 font-bold text-sm">- Josh F</p>
+              </div>
 
-                <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-green-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
-                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                    J
-                  </div>
-                  <p className="text-slate-700 font-medium mb-3 leading-relaxed">
-                    "Miguel taught me concepts in a simple way"
-                  </p>
-                  <p className="text-green-600 font-bold text-sm">- Justin T</p>
+              <div className="review-bubble animate-float-1 bg-white/95 backdrop-blur-sm rounded-full p-8 shadow-xl border-4 border-green-400/30 max-w-xs text-center transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                  J
                 </div>
+                <p className="text-slate-700 font-medium mb-3 leading-relaxed">
+                  "Miguel taught me concepts in a simple way"
+                </p>
+                <p className="text-green-600 font-bold text-sm">- Justin T</p>
               </div>
             </div>
+          </div>
 
-            <div className="text-center mt-16">
-              <a
-                href="https://form.jotform.com/252580694569169"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block"
-              >
-                <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                  Leave a Review
-                </Button>
-              </a>
-            </div>
+          <div className="text-center mt-16">
+            <a
+              href="https://form.jotform.com/252580694569169"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button className="bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                Leave a Review
+              </Button>
+            </a>
           </div>
         </div>
       </section>
@@ -359,9 +300,7 @@ export default function HomePage() {
       <section className="relative bg-gradient-to-br from-slate-800 via-blue-900 to-slate-900 py-32 md:py-48 overflow-hidden">
         <FloatingTerms />
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
-          <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white leading-tight">
-            Don't know where to start?
-          </h2>
+          <h2 className="text-6xl md:text-8xl font-bold mb-12 text-white leading-tight">Don't know where to start?</h2>
           <Link href="/mentors">
             <div className="inline-block bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-500 p-1 rounded-3xl hover:from-blue-600 hover:via-cyan-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-2xl">
               <div className="bg-slate-900 px-12 py-8 rounded-3xl">
