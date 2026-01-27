@@ -25,6 +25,7 @@ export default function ProfileSetupPage() {
   const [location, setLocation] = useState("")
   const [interests, setInterests] = useState("")
   const [profilePhoto, setProfilePhoto] = useState<File | null>(null)
+  const [existingProfileImageUrl, setExistingProfileImageUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [user, setUser] = useState<any>(null)
@@ -38,10 +39,7 @@ export default function ProfileSetupPage() {
         error,
       } = await supabase.auth.getUser()
 
-      console.log("[v0] Auth check - User:", user?.id, "Error:", error)
-
       if (error || !user) {
-        console.log("[v0] No authenticated user, redirecting to signin")
         router.push("/signin")
         return
       }
@@ -49,18 +47,40 @@ export default function ProfileSetupPage() {
       const {
         data: { session },
       } = await supabase.auth.getSession()
-      console.log("[v0] Session check:", session?.user?.id)
 
       if (!session) {
-        console.log("[v0] No active session, redirecting to signin")
         router.push("/signin")
         return
       }
 
       setUser(user)
 
-      // Pre-fill name from auth metadata if available
-      if (user.user_metadata?.full_name) {
+      // Fetch existing profile data to pre-fill the form
+      const { data: existingProfile, error: profileError } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("user_id", user.id)
+        .single()
+
+      if (existingProfile && !profileError) {
+        // Pre-fill form with existing profile data
+        if (existingProfile.full_name) {
+          const nameParts = existingProfile.full_name.split(" ")
+          setFirstName(nameParts[0] || "")
+          setLastName(nameParts.slice(1).join(" ") || "")
+        }
+        setAboutMe(existingProfile.about_me || "")
+        setExperience(existingProfile.experience || "")
+        setEducation(existingProfile.education || "")
+        setLinkedin(existingProfile.linkedin_url || "")
+        setTwitter(existingProfile.twitter_url || "")
+        setInstagram(existingProfile.instagram_url || "")
+        setWebsite(existingProfile.website_url || "")
+        setLocation(existingProfile.location || "")
+        setInterests(existingProfile.interests ? existingProfile.interests.join(", ") : "")
+        setExistingProfileImageUrl(existingProfile.profile_image_url || null)
+      } else if (user.user_metadata?.full_name) {
+        // Fall back to auth metadata for new profiles
         const nameParts = user.user_metadata.full_name.split(" ")
         setFirstName(nameParts[0] || "")
         setLastName(nameParts.slice(1).join(" ") || "")
@@ -68,7 +88,7 @@ export default function ProfileSetupPage() {
     }
 
     getUser()
-  }, [router, supabase.auth])
+  }, [router, supabase])
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -86,8 +106,6 @@ export default function ProfileSetupPage() {
     setError(null)
 
     try {
-      console.log("[v0] Starting profile save process for user:", user.id)
-
       const {
         data: { session },
       } = await supabase.auth.getSession()
@@ -95,11 +113,9 @@ export default function ProfileSetupPage() {
         throw new Error("No active session. Please sign in again.")
       }
 
-      console.log("[v0] Active session confirmed for user:", session.user.id)
+      let profileImageUrl = existingProfileImageUrl // Preserve existing image by default
 
-      let profileImageUrl = null
-
-      // Upload profile photo if provided
+      // Upload profile photo if a new one is provided
       if (profilePhoto) {
         const fileExt = profilePhoto.name.split(".").pop()
         const fileName = `${user.id}-${Date.now()}.${fileExt}`
@@ -107,14 +123,12 @@ export default function ProfileSetupPage() {
         const { error: uploadError } = await supabase.storage.from("profile-images").upload(fileName, profilePhoto)
 
         if (uploadError) {
-          console.warn("Photo upload failed:", uploadError.message)
           // Continue without photo rather than failing completely
         } else {
           const {
             data: { publicUrl },
           } = supabase.storage.from("profile-images").getPublicUrl(fileName)
           profileImageUrl = publicUrl
-          console.log("[v0] Profile image uploaded successfully:", profileImageUrl)
         }
       }
 
@@ -143,16 +157,11 @@ export default function ProfileSetupPage() {
         updated_at: new Date().toISOString(),
       }
 
-      console.log("[v0] Profile data to save:", profileData)
-
-      const { data, error: saveError } = await supabase.from("profiles").upsert([profileData]).select()
+      const { error: saveError } = await supabase.from("profiles").upsert([profileData]).select()
 
       if (saveError) {
-        console.error("[v0] Profile save error:", saveError)
         throw saveError
       }
-
-      console.log("[v0] Profile saved successfully:", data)
 
       setTimeout(() => {
         router.push("/dashboard")
@@ -210,6 +219,12 @@ export default function ProfileSetupPage() {
                   {profilePhoto ? (
                     <img
                       src={URL.createObjectURL(profilePhoto) || "/placeholder.svg"}
+                      alt="Profile"
+                      className="w-32 h-32 rounded-full object-cover"
+                    />
+                  ) : existingProfileImageUrl ? (
+                    <img
+                      src={existingProfileImageUrl || "/placeholder.svg"}
                       alt="Profile"
                       className="w-32 h-32 rounded-full object-cover"
                     />
