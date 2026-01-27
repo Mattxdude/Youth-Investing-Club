@@ -2,15 +2,29 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import AuthHeader from "@/components/auth-header"
+import { ChevronDown } from "lucide-react"
 
 export default function MentorsPage() {
   const [expandedCards, setExpandedCards] = useState<{ [key: string]: { help: boolean; facts: boolean } }>({})
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false)
+      } else {
+        setShowScrollIndicator(true)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   const toggleExpanded = (mentorId: string, section: "help" | "facts") => {
     setExpandedCards((prev) => ({
@@ -146,13 +160,16 @@ export default function MentorsPage() {
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="mb-12 max-w-md mx-auto">
-            <Input
-              type="text"
-              placeholder="Search by name, education, or expertise..."
-              className="bg-background/80 backdrop-blur-sm border-border px-4 py-3 rounded-lg w-full text-base"
-            />
+          {/* Scroll Down Indicator */}
+          <div
+            className={`flex flex-col items-center mb-8 transition-opacity duration-500 ${
+              showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <span className="text-muted-foreground text-sm font-medium mb-2">Scroll to explore mentors</span>
+            <div className="animate-bounce">
+              <ChevronDown className="w-6 h-6 text-blue-600" />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
