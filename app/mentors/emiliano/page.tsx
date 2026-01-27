@@ -5,10 +5,26 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
-import { Calendar, MapPin, Briefcase, GraduationCap, Award } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Calendar, MapPin, Briefcase, GraduationCap, Award, ChevronDown } from "lucide-react"
 import AuthHeader from "@/components/auth-header"
 
 export default function EmilianoMentorPage() {
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false)
+      } else {
+        setShowScrollIndicator(true)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
     <div id="top" className="min-h-screen bg-background">
       <AuthHeader />
@@ -61,6 +77,18 @@ export default function EmilianoMentorPage() {
                   Book a Free Session with Emiliano
                 </Button>
               </a>
+            </div>
+          </div>
+
+          {/* Scroll Down Indicator */}
+          <div
+            className={`flex flex-col items-center mt-12 transition-opacity duration-500 ${
+              showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <span className="text-white/80 text-sm font-medium mb-2">Scroll to learn more</span>
+            <div className="animate-bounce">
+              <ChevronDown className="w-6 h-6 text-white" />
             </div>
           </div>
         </div>
