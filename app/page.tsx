@@ -4,10 +4,26 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import { ChevronDown } from "lucide-react"
+import { useState, useEffect } from "react"
 import FloatingTerms from "@/components/floating-terms"
 import AuthHeader from "@/components/auth-header"
 
 export default function HomePage() {
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollIndicator(false)
+      } else {
+        setShowScrollIndicator(true)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
   const mentors = [
     {
       id: "miguel",
@@ -116,7 +132,7 @@ export default function HomePage() {
             }
           </p>
 
-          <div className="mb-32">
+          <div className="mb-12">
             <Link href="/mentors">
               <Button
                 className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-12 py-6 md:px-20 md:py-8 text-xl md:text-3xl font-bold rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
@@ -125,12 +141,55 @@ export default function HomePage() {
                   color: "#ffffff !important",
                 }}
               >
-                🚀 Book a Free Meeting
+                Book a Free Meeting
               </Button>
             </Link>
           </div>
 
-          <div className="mt-32">
+          {/* Action Buttons Row */}
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center items-center mb-12">
+            <a
+              href="https://form.jotform.com/252580694569169"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[200px] transition-all duration-300"
+              >
+                Become a Mentor
+              </Button>
+            </a>
+            <Link href="/mentors">
+              <Button
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[200px] transition-all duration-300"
+              >
+                Our Mentors
+              </Button>
+            </Link>
+            <Link href="/network">
+              <Button
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/10 px-8 py-4 text-sm md:text-base font-semibold tracking-wider uppercase rounded-none min-w-[200px] transition-all duration-300"
+              >
+                Network
+              </Button>
+            </Link>
+          </div>
+
+          {/* Scroll Down Indicator */}
+          <div
+            className={`flex flex-col items-center transition-opacity duration-500 mb-24 ${
+              showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
+          >
+            <div className="animate-bounce">
+              <ChevronDown className="w-8 h-8 text-white" />
+            </div>
+          </div>
+
+          <div className="mt-8">
             <h2 className="text-4xl md:text-5xl font-bold mb-20 text-white" style={{ color: "#ffffff !important" }}>
               Meet Our Mentors
             </h2>
