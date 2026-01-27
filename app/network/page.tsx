@@ -41,10 +41,7 @@ export default function NetworkPage() {
 
       const { data, error } = await supabase.from("profiles").select("*").order("updated_at", { ascending: false })
 
-      if (error) {
-        console.error("Error fetching profiles:", error)
-      } else {
-        console.log("[v0] Fetched profiles:", data?.length)
+      if (!error) {
         setProfiles(data || [])
       }
       setLoading(false)
@@ -55,8 +52,7 @@ export default function NetworkPage() {
     const supabase = createClient()
     const subscription = supabase
       .channel("profiles-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "profiles" }, (payload) => {
-        console.log("[v0] Profile change detected:", payload)
+      .on("postgres_changes", { event: "*", schema: "public", table: "profiles" }, () => {
         fetchProfiles()
       })
       .subscribe()
