@@ -139,58 +139,54 @@ export default function HomePage() {
 
         {/* Full-width carousel section - breaks out of container */}
         <div className="relative overflow-hidden py-4 w-screen -ml-[50vw] left-1/2">
-          <div className="flex animate-slide-continuous gap-4 md:gap-8" style={{ width: "max-content" }}>
+          <div className="flex animate-slide-continuous gap-3 md:gap-6 items-stretch" style={{ width: "max-content" }}>
             {duplicatedMentors.map((mentor, index) => (
               <Link
                 key={`${mentor.id}-${index}`}
                 href={`/mentors/${mentor.id}#top`}
-                className="block group flex-shrink-0 w-64 md:w-80"
+                className="block group flex-shrink-0 w-56 md:w-72"
               >
                 <Card
-                  className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 h-[520px] md:h-[680px] mx-1 md:mx-2"
+                  className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 mx-1 md:mx-2 h-full"
                   style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
                 >
                   <CardContent
-                    className="text-center p-4 md:p-8 h-full flex flex-col justify-between"
+                    className="text-center p-3 md:p-5 h-full flex flex-col"
                     style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
                   >
-                    <div className="flex-1 flex flex-col">
-                      <div className="mb-4 md:mb-8">
-                        <Image
-                          src={mentor.image || "/placeholder.svg"}
-                          alt={mentor.name}
-                          width={240}
-                          height={240}
-                          className="rounded-2xl mx-auto group-hover:scale-110 transition-transform duration-500 shadow-lg ring-4 ring-blue-500/20 object-cover aspect-square w-40 h-40 md:w-60 md:h-60"
-                        />
-                      </div>
-
-                      <h3
-                        className="text-lg md:text-2xl font-bold mb-2 md:mb-4 mentor-name-forced"
-                        style={{
-                          color: "#000000 !important",
-                          backgroundColor: "#ffffff !important",
-                          opacity: "1 !important",
-                        }}
-                      >
-                        {mentor.name}
-                      </h3>
-                      <p className="text-blue-600 font-bold mb-2 md:mb-4 text-sm md:text-lg">{mentor.title}</p>
-                      <p
-                        className="text-slate-600 text-xs md:text-base mb-2 md:mb-4 font-medium leading-relaxed"
-                        style={{ color: "#475569 !important" }}
-                      >
-                        {mentor.specialty}
-                      </p>
-                      <div className="flex-1 flex items-start justify-center mb-4 md:mb-8">
-                        <p className="text-slate-500 text-xs md:text-sm font-medium text-center leading-relaxed">
-                          {mentor.experience}
-                        </p>
-                      </div>
+                    <div className="mb-3 md:mb-4">
+                      <Image
+                        src={mentor.image || "/placeholder.svg"}
+                        alt={mentor.name}
+                        width={200}
+                        height={200}
+                        className="rounded-xl mx-auto group-hover:scale-105 transition-transform duration-500 shadow-lg ring-2 ring-blue-500/20 object-cover aspect-square w-28 h-28 md:w-40 md:h-40"
+                      />
                     </div>
 
+                    <h3
+                      className="text-base md:text-xl font-bold mb-1 md:mb-2 mentor-name-forced line-clamp-1"
+                      style={{
+                        color: "#000000 !important",
+                        backgroundColor: "#ffffff !important",
+                        opacity: "1 !important",
+                      }}
+                    >
+                      {mentor.name}
+                    </h3>
+                    <p className="text-blue-600 font-semibold mb-1 md:mb-2 text-xs md:text-sm line-clamp-2 min-h-[2rem] md:min-h-[2.5rem]">{mentor.title}</p>
+                    <p
+                      className="text-slate-600 text-xs md:text-sm mb-1 md:mb-2 font-medium leading-snug line-clamp-2 min-h-[2rem] md:min-h-[2.5rem]"
+                      style={{ color: "#475569 !important" }}
+                    >
+                      {mentor.specialty}
+                    </p>
+                    <p className="text-slate-500 text-xs font-medium text-center leading-snug line-clamp-2 mb-3 md:mb-4 min-h-[2rem] md:min-h-[2.5rem]">
+                      {mentor.experience}
+                    </p>
+
                     <Button
-                      className="bg-blue-600 hover:bg-blue-700 text-white w-full text-sm md:text-base py-3 md:py-4 rounded-xl transition-colors duration-300 mt-auto"
+                      className="bg-blue-600 hover:bg-blue-700 text-white w-full text-xs md:text-sm py-2 md:py-3 rounded-lg transition-colors duration-300 mt-auto"
                       style={{
                         backgroundColor: "#2563eb !important",
                         color: "#ffffff !important",
