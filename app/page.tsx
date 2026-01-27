@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
+import { ChevronDown } from "lucide-react"
 import FloatingTerms from "@/components/floating-terms"
 import AuthHeader from "@/components/auth-header"
 
@@ -130,6 +131,17 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+        </div>
+
+        {/* Scroll Down Indicator */}
+        <div className="pb-8 flex justify-center">
+          <button
+            onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+            className="text-white/70 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
+            aria-label="Scroll down"
+          >
+            <ChevronDown className="w-8 h-8" strokeWidth={1.5} />
+          </button>
         </div>
       </section>
 
