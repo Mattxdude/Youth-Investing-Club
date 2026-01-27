@@ -125,7 +125,7 @@ export default function HomePage() {
                   color: "#ffffff !important",
                 }}
               >
-                Book a Free Meeting
+                🚀 Book a Free Meeting
               </Button>
             </Link>
           </div>
