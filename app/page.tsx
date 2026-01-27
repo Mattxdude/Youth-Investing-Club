@@ -139,33 +139,33 @@ export default function HomePage() {
 
         {/* Full-width carousel section - breaks out of container */}
         <div className="relative overflow-hidden py-4 w-screen -ml-[50vw] left-1/2">
-          <div className="flex animate-slide-continuous gap-3 md:gap-6 items-stretch" style={{ width: "max-content" }}>
+          <div className="flex animate-slide-continuous gap-4 md:gap-6" style={{ width: "max-content" }}>
             {duplicatedMentors.map((mentor, index) => (
               <Link
                 key={`${mentor.id}-${index}`}
                 href={`/mentors/${mentor.id}#top`}
-                className="block group flex-shrink-0 w-56 md:w-72"
+                className="block group flex-shrink-0 w-72 md:w-80"
               >
                 <Card
-                  className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 mx-1 md:mx-2 h-full"
+                  className="card-enhanced group-hover:scale-105 cursor-pointer border-0 shadow-xl hover:shadow-2xl bg-white backdrop-blur-sm transition-all duration-700 mx-1 md:mx-2 h-[480px] md:h-[540px]"
                   style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
                 >
                   <CardContent
-                    className="text-center p-3 md:p-5 h-full flex flex-col"
+                    className="text-center p-5 md:p-6 h-full flex flex-col"
                     style={{ backgroundColor: "#ffffff !important", opacity: "1 !important" }}
                   >
-                    <div className="mb-3 md:mb-4">
+                    <div className="mb-4 md:mb-5">
                       <Image
                         src={mentor.image || "/placeholder.svg"}
                         alt={mentor.name}
                         width={200}
                         height={200}
-                        className="rounded-xl mx-auto group-hover:scale-105 transition-transform duration-500 shadow-lg ring-2 ring-blue-500/20 object-cover aspect-square w-28 h-28 md:w-40 md:h-40"
+                        className="rounded-xl mx-auto group-hover:scale-105 transition-transform duration-500 shadow-lg ring-2 ring-blue-500/20 object-cover aspect-square w-36 h-36 md:w-44 md:h-44"
                       />
                     </div>
 
                     <h3
-                      className="text-base md:text-xl font-bold mb-1 md:mb-2 mentor-name-forced line-clamp-1"
+                      className="text-lg md:text-xl font-bold mb-2 mentor-name-forced"
                       style={{
                         color: "#000000 !important",
                         backgroundColor: "#ffffff !important",
@@ -174,19 +174,19 @@ export default function HomePage() {
                     >
                       {mentor.name}
                     </h3>
-                    <p className="text-blue-600 font-semibold mb-1 md:mb-2 text-xs md:text-sm line-clamp-2 min-h-[2rem] md:min-h-[2.5rem]">{mentor.title}</p>
+                    <p className="text-blue-600 font-semibold mb-2 text-sm md:text-base">{mentor.title}</p>
                     <p
-                      className="text-slate-600 text-xs md:text-sm mb-1 md:mb-2 font-medium leading-snug line-clamp-2 min-h-[2rem] md:min-h-[2.5rem]"
+                      className="text-slate-600 text-sm mb-2 font-medium leading-relaxed"
                       style={{ color: "#475569 !important" }}
                     >
                       {mentor.specialty}
                     </p>
-                    <p className="text-slate-500 text-xs font-medium text-center leading-snug line-clamp-2 mb-3 md:mb-4 min-h-[2rem] md:min-h-[2.5rem]">
+                    <p className="text-slate-500 text-sm font-medium text-center leading-relaxed mb-4 flex-1">
                       {mentor.experience}
                     </p>
 
                     <Button
-                      className="bg-blue-600 hover:bg-blue-700 text-white w-full text-xs md:text-sm py-2 md:py-3 rounded-lg transition-colors duration-300 mt-auto"
+                      className="bg-blue-600 hover:bg-blue-700 text-white w-full text-sm md:text-base py-3 rounded-lg transition-colors duration-300 mt-auto"
                       style={{
                         backgroundColor: "#2563eb !important",
                         color: "#ffffff !important",
