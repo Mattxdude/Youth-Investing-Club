@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
@@ -159,15 +158,6 @@ export default function MentorsPage() {
               Browse our network of mentors and schedule a free 30-minute consultation to get personalized guidance for
               your investing journey.
             </p>
-          </div>
-
-          {/* Search Bar */}
-          <div className="mb-12 max-w-md mx-auto">
-            <Input
-              type="text"
-              placeholder="Search by name, education, or expertise..."
-              className="bg-background/80 backdrop-blur-sm border-border px-4 py-3 rounded-lg w-full text-base"
-            />
           </div>
 
           {/* Scroll Down Indicator */}
