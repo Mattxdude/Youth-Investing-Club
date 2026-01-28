@@ -84,20 +84,20 @@ export default function HomePage() {
           minHeight: "500px",
         }}
       >
-        <div className="flex-1 flex flex-col justify-center items-center px-4">
+        <div className="flex-1 flex flex-col justify-start items-center px-4 pt-8 md:pt-12">
           <div className="max-w-6xl mx-auto text-center">
-            <div className="mb-3 md:mb-4">
+            <div className="mb-2 md:mb-3">
               <Image
                 src="/images/graduation-cap-logo.png"
                 alt="Youth Investing Network"
-                width={60}
-                height={60}
-                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[70px] md:h-[70px]"
+                width={50}
+                height={50}
+                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[60px] md:h-[60px]"
               />
             </div>
 
             <h1
-              className="hero-heading-forced text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 text-white leading-tight"
+              className="hero-heading-forced text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-2 text-white leading-tight"
               style={{ color: "#ffffff !important" }}
             >
               Empowering the Youth with Financial
@@ -113,7 +113,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="hero-paragraph-forced text-xs sm:text-sm md:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-3 md:mb-5 leading-relaxed font-medium px-2"
+              className="hero-paragraph-forced text-xs sm:text-sm md:text-base lg:text-lg text-slate-300 max-w-2xl mx-auto mb-3 md:mb-4 leading-relaxed font-medium px-2"
               style={{ color: "#cbd5e1 !important" }}
             >
               Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy
@@ -122,7 +122,7 @@ export default function HomePage() {
             <div>
               <Link href="/mentors">
                 <Button
-                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-5 py-2.5 md:px-8 md:py-4 text-sm md:text-lg font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-4 py-2 md:px-6 md:py-3 text-sm md:text-base font-bold rounded-xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
                   style={{
                     background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
                     color: "#ffffff !important",
@@ -136,7 +136,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Down Indicator */}
-        <div className="pb-4 md:pb-6 flex justify-center">
+        <div className="pb-6 md:pb-10 flex justify-center">
           <button
             type="button"
             onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
