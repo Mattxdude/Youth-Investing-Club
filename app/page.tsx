@@ -90,9 +90,9 @@ export default function HomePage() {
               <Image
                 src="/images/graduation-cap-logo.png"
                 alt="Youth Investing Network"
-                width={60}
-                height={60}
-                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[80px] md:h-[80px]"
+                width={100}
+                height={100}
+                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[120px] md:h-[120px]"
               />
             </div>
 
