@@ -84,20 +84,20 @@ export default function HomePage() {
           minHeight: "500px",
         }}
       >
-        <div className="flex-1 flex flex-col justify-start items-center px-4 pt-12 md:pt-16">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="mb-6 md:mb-8">
+        <div className="flex-1 flex flex-col justify-start items-center px-4 pt-6 md:pt-10">
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="mb-4 md:mb-6">
               <Image
                 src="/images/graduation-cap-logo.png"
                 alt="Youth Investing Network"
-                width={80}
-                height={80}
-                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[100px] md:h-[100px]"
+                width={60}
+                height={60}
+                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[80px] md:h-[80px]"
               />
             </div>
 
             <h1
-              className="hero-heading-forced text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 text-white leading-tight"
+              className="hero-heading-forced text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight"
               style={{ color: "#ffffff !important" }}
             >
               Empowering the Youth with Financial
@@ -113,16 +113,16 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="hero-paragraph-forced text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 max-w-4xl mx-auto mb-6 md:mb-8 leading-relaxed font-medium px-2"
+              className="hero-paragraph-forced text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-4 md:mb-6 leading-relaxed font-medium px-2"
               style={{ color: "#cbd5e1 !important" }}
             >
               Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy
             </p>
 
-            <div className="mb-6 md:mb-8">
+            <div className="mb-4 md:mb-6">
               <Link href="/mentors">
                 <Button
-                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-8 py-4 md:px-12 md:py-6 text-lg md:text-2xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-6 py-3 md:px-10 md:py-5 text-base md:text-xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
                   style={{
                     background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
                     color: "#ffffff !important",
@@ -140,7 +140,7 @@ export default function HomePage() {
               className="text-white/50 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
               aria-label="Scroll down"
             >
-              <ChevronDown className="w-8 h-8 md:w-10 md:h-10" strokeWidth={1} />
+              <ChevronDown className="w-6 h-6 md:w-8 md:h-8" strokeWidth={1} />
             </button>
           </div>
         </div>
