@@ -74,28 +74,30 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <AuthHeader />
 
-      {/* Hero Section - Fits within viewport */}
+      {/* Hero Section - Fits within viewport minus header */}
       <section
-        className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 h-screen flex flex-col"
+        className="hero-section-forced bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex flex-col"
         style={{
           background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%) !important",
           backgroundColor: "#0f172a !important",
+          height: "calc(100dvh - 73px)",
+          minHeight: "500px",
         }}
       >
         <div className="flex-1 flex flex-col justify-center items-center px-4">
           <div className="max-w-6xl mx-auto text-center">
-            <div className="mb-4 md:mb-6">
+            <div className="mb-3 md:mb-4">
               <Image
                 src="/images/graduation-cap-logo.png"
                 alt="Youth Investing Network"
-                width={70}
-                height={70}
-                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer"
+                width={60}
+                height={60}
+                className="mx-auto drop-shadow-lg rounded-xl hover:scale-110 hover:rotate-3 transition-all duration-500 cursor-pointer md:w-[70px] md:h-[70px]"
               />
             </div>
 
             <h1
-              className="hero-heading-forced text-3xl md:text-5xl lg:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight"
+              className="hero-heading-forced text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 text-white leading-tight"
               style={{ color: "#ffffff !important" }}
             >
               Empowering the Youth with Financial
@@ -111,7 +113,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="hero-paragraph-forced text-sm md:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-4 md:mb-6 leading-relaxed font-medium"
+              className="hero-paragraph-forced text-xs sm:text-sm md:text-lg lg:text-xl text-slate-300 max-w-3xl mx-auto mb-3 md:mb-5 leading-relaxed font-medium px-2"
               style={{ color: "#cbd5e1 !important" }}
             >
               Youth Investing Network provides free, personalized financial tutoring to help young people build confidence and financial literacy
@@ -120,7 +122,7 @@ export default function HomePage() {
             <div>
               <Link href="/mentors">
                 <Button
-                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-6 py-3 md:px-10 md:py-5 text-base md:text-xl font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
+                  className="hero-button-forced bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 hover:from-blue-700 hover:via-purple-700 hover:to-blue-800 text-white px-5 py-2.5 md:px-8 md:py-4 text-sm md:text-lg font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 animate-dramatic-shake transform hover:scale-105"
                   style={{
                     background: "linear-gradient(90deg, #2563eb 0%, #9333ea 50%, #1d4ed8 100%) !important",
                     color: "#ffffff !important",
@@ -134,14 +136,14 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Down Indicator */}
-        <div className="pb-6 md:pb-8 flex justify-center">
+        <div className="pb-4 md:pb-6 flex justify-center">
           <button
             type="button"
             onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-            className="text-white/60 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
+            className="text-white/50 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
             aria-label="Scroll down"
           >
-            <ChevronDown className="w-7 h-7 md:w-8 md:h-8" strokeWidth={1} />
+            <ChevronDown className="w-6 h-6 md:w-7 md:h-7" strokeWidth={1} />
           </button>
         </div>
       </section>
