@@ -84,7 +84,7 @@ export default function HomePage() {
           minHeight: "500px",
         }}
       >
-        <div className="flex-1 flex flex-col justify-start items-center px-4 pt-6 md:pt-10">
+        <div className="flex-1 flex flex-col justify-center items-center px-4">
           <div className="max-w-5xl mx-auto text-center">
             <div className="mb-4 md:mb-6">
               <Image
