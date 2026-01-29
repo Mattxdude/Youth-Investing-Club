@@ -137,10 +137,11 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-              className="text-white/50 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
+              className="flex flex-col items-center text-white hover:text-cyan-400 transition-colors duration-300 animate-bounce cursor-pointer mt-2"
               aria-label="Scroll down"
             >
-              <ChevronDown className="w-6 h-6 md:w-8 md:h-8" strokeWidth={1} />
+              <span className="text-sm font-semibold mb-1">Scroll to learn more</span>
+              <ChevronDown className="w-10 h-10 md:w-12 md:h-12" strokeWidth={2} />
             </button>
           </div>
         </div>

@@ -96,16 +96,18 @@ export default function EmilianoMentorPage() {
           </div>
 
           {/* Scroll Down Indicator */}
-          <div
-            className={`flex flex-col items-center mt-12 transition-opacity duration-500 ${
+          <button
+            type="button"
+            onClick={() => window.scrollBy({ top: window.innerHeight * 0.7, behavior: 'smooth' })}
+            className={`flex flex-col items-center mt-12 transition-opacity duration-500 cursor-pointer hover:scale-110 ${
               showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
             <span className="text-black text-sm font-semibold mb-2">Scroll to learn more</span>
             <div className="animate-bounce">
-              <ChevronDown className="w-8 h-8 text-black" />
+              <ChevronDown className="w-10 h-10 text-black" />
             </div>
-          </div>
+          </button>
         </div>
       </section>
 
