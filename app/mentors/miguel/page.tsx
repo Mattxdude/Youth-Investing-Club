@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { ArrowLeft, Calendar, MapPin, GraduationCap, Briefcase, ExternalLink, ChevronDown } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, GraduationCap, Briefcase, ExternalLink, ChevronDown, Linkedin } from "lucide-react"
 import AuthHeader from "@/components/auth-header"
 import MobileMenu from "@/components/mobile-menu"
 
@@ -72,19 +72,34 @@ export default function MiguelPage() {
                 and investing with some of the world's most successful investors.
               </p>
 
-              <Button
-                asChild
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
-              >
-                <a
-                  href="https://calendly.com/miguel-youthinvestingnetwork/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
                 >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book a Free 30-min Session
-                </a>
-              </Button>
+                  <a
+                    href="https://calendly.com/miguel-youthinvestingnetwork/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Book a Free 30-min Session
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-[#0077B5] text-[#0077B5] hover:bg-[#0077B5] hover:text-white px-4 py-3 text-lg rounded-xl transition-colors duration-300 bg-transparent"
+                >
+                  <a
+                    href="https://www.linkedin.com/in/miguelgutierrezal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
 
