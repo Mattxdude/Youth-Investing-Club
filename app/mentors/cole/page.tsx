@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect } from "react"
-import { ArrowLeft, Calendar, MapPin, GraduationCap, Briefcase, ExternalLink, ChevronDown } from "lucide-react"
+import { ArrowLeft, Calendar, MapPin, GraduationCap, Briefcase, ExternalLink, ChevronDown, Linkedin } from "lucide-react"
 import AuthHeader from "@/components/auth-header"
 import MobileMenu from "@/components/mobile-menu"
 
@@ -75,19 +75,34 @@ export default function ColePage() {
                 markets research, investor communication, and building hands-on finance experiences for students.
               </p>
 
-              <Button
-                asChild
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
-              >
-                <a
-                  href="https://calendly.com/cole-youthinvestingnetwork/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg rounded-xl transition-colors duration-300"
                 >
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book a Free 30-min Session
-                </a>
-              </Button>
+                  <a
+                    href="https://calendly.com/cole-youthinvestingnetwork/30min"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Book a Free 30-min Session
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-[#0077B5] text-[#0077B5] hover:bg-[#0077B5] hover:text-white px-4 py-3 text-lg rounded-xl transition-colors duration-300 bg-transparent"
+                >
+                  <a
+                    href="https://www.linkedin.com/in/colebechtel/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -97,9 +112,9 @@ export default function ColePage() {
               showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            <span className="text-white/80 text-sm font-medium mb-2">Scroll to learn more</span>
+            <span className="text-black text-sm font-semibold mb-2">Scroll to learn more</span>
             <div className="animate-bounce">
-              <ChevronDown className="w-6 h-6 text-white" />
+              <ChevronDown className="w-8 h-8 text-black" />
             </div>
           </div>
         </div>
