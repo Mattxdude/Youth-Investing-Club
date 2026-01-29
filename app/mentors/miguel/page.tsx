@@ -109,9 +109,9 @@ export default function MiguelPage() {
               showScrollIndicator ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            <span className="text-white/80 text-sm font-medium mb-2">Scroll to learn more</span>
+            <span className="text-black text-sm font-semibold mb-2">Scroll to learn more</span>
             <div className="animate-bounce">
-              <ChevronDown className="w-6 h-6 text-white" />
+              <ChevronDown className="w-8 h-8 text-black" />
             </div>
           </div>
         </div>
