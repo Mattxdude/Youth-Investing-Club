@@ -50,14 +50,7 @@ export default function HomePage() {
       experience: "UCSB Investment Connection Treasurer",
       image: "/images/melanie-silva.jpeg",
     },
-    {
-      id: "diya",
-      name: "Diya Deshpande",
-      title: "Economics & Statistical Science Student",
-      specialty: "Investment Banking, Marketing Technology",
-      experience: "Investment Banking Analyst at New York Bay Capital, UCSB Investment Advisory Committee",
-      image: "/images/diya-deshpande.jpg",
-    },
+    
     {
       id: "emiliano",
       name: "Emiliano Hurtado",
@@ -137,11 +130,10 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
-              className="flex flex-col items-center text-white hover:text-cyan-400 transition-colors duration-300 animate-bounce cursor-pointer mt-2"
+              className="text-white/50 hover:text-white transition-colors duration-300 animate-bounce cursor-pointer"
               aria-label="Scroll down"
             >
-              <span className="text-sm font-semibold mb-1">Scroll to learn more</span>
-              <ChevronDown className="w-10 h-10 md:w-12 md:h-12" strokeWidth={2} />
+              <ChevronDown className="w-6 h-6 md:w-8 md:h-8" strokeWidth={1} />
             </button>
           </div>
         </div>
